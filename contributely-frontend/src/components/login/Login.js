@@ -27,8 +27,28 @@ export const Login = () => {
     const [loginOrgPassword, setLoginOrgPassword] = useState("")
 
     const login = () =>{
+        axios({
+            method: "post",
+            data: {
+                email: loginOrgEmail,
+                password: loginOrgPassword
+            },
+            withCredentials: true,
+            url:"http://localhost:4000/login"
+        }).then((res) => console.log(res));
+       //getUser();
+    };
 
+    //this function is to get authenticated user
+    /*
+    const getUser = () =>{
+        axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:4000/org"
+        }).then((res) => console.log(res))
     }
+    */
 
     return(
         <Container>
