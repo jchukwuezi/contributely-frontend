@@ -11,7 +11,13 @@ export const DonorLogin = () => {
     const donorLogin = () =>{
         //creating axios instance
         axios({
-
+            method: "post",
+            data: {
+                email: loginDonorEmail,
+                password: loginDonorPassword
+            },
+            withCredentials: true,
+            url:"http://localhost:4000/api/donors/login"
         }).then();
     }
 

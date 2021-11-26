@@ -1,20 +1,27 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {Col, Container, Row, Form, Button} from 'react-bootstrap';
-
 export const DonorRegister = () =>{
 
 
     //storing user inputs in state
-    const [registerDonorName, setDonorOrgName] = useState("")
-    const [registerDonorEmail, setDonorOrgEmail] =  useState("")
-    const [registerDonorPassword, setDonorOrgPassword] = useState("")
+    const [registerDonorName, setDonorName] = useState("")
+    const [registerDonorEmail, setDonorEmail] =  useState("")
+    const [registerDonorPassword, setDonorPassword] = useState("")
 
     const donorRegister = () => {
+        console.log("Register button has been clicked");
         //ceating axios instance
         axios({
-
-        }).then();
+            method: "post",
+            data:{
+                donorName: registerDonorName,
+                donorEmail: registerDonorEmail,
+                donorPassword: registerDonorPassword
+            },
+            withCredentials: true,
+            url: "http://localhost:4000/api/donors/register"
+        }).then((res) => console.log(res));
     }
 
 
@@ -27,17 +34,17 @@ export const DonorRegister = () =>{
 
                         <Form.Group className="mt-2">
                             <Form.Label>Name </Form.Label>
-                            <Form.Control type="text" placeholder="Enter donor name" name="name" onChange={e => setDonorOrgName(e.target.value)}/>   
+                            <Form.Control type="text" placeholder="Enter donor name" name="name" onChange={e => setDonorName(e.target.value)}/>   
                         </Form.Group>
 
                         <Form.Group className="mt-2">
                             <Form.Label>Email address </Form.Label>
-                            <Form.Control type="email" placeholder="Enter donor email" name="email" onChange= {e => setDonorOrgEmail(e.target.value)}/>   
+                            <Form.Control type="email" placeholder="Enter donor email" name="email" onChange= {e => setDonorEmail(e.target.value)}/>   
                         </Form.Group>
                         
                         <Form.Group className="mt-2">
                             <Form.Label> Password </Form.Label>
-                            <Form.Control type="password" placeholder="Enter password" name="password" onChange = {e => setDonorOrgPassword(e.target.value)}/>   
+                            <Form.Control type="password" placeholder="Enter password" name="password" onChange = {e => setDonorPassword(e.target.value)}/>   
                         </Form.Group>
                         
                         <Form.Group className="mt-2">
@@ -57,6 +64,5 @@ export const DonorRegister = () =>{
 
 
 }
-
 
 export default DonorRegister;
