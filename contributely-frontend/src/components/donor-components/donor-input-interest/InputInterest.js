@@ -7,6 +7,9 @@ export const InputInterest = () =>{
     //setting the state of the component 
     //initializing it to an empty list
     const [state, setState] = useState([])
+
+    //making a get request to get the name of the current user in the database
+    
     return(
        <Container>
        <h1 className="mt-5 p-3 text-center rounded">What categories of initiatives are you interested in?</h1>

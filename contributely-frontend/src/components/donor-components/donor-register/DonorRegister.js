@@ -21,7 +21,10 @@ export const DonorRegister = () =>{
             },
             withCredentials: true,
             url: "http://localhost:4000/api/donors/register"
-        }).then((res) => console.log(res));
+        }).then((res) => console.log(res))
+        .catch(error => {
+            console.log(error.response.request._response);
+        });
     }
 
 

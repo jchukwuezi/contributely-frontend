@@ -18,12 +18,15 @@ export const DonorLogin = () => {
             },
             withCredentials: true,
             url:"http://localhost:4000/api/donors/login"
-        }).then();
+        }).then((res) => console.log(res))
+        .catch(error => {
+            console.log(error.response.request._response);
+        });
     }
 
     return(
         <Container>
-            <h1 className="text-primary mt-5 p-3 text-center rounded">Organisation Login</h1>
+            <h1 className="text-primary mt-5 p-3 text-center rounded">Donor Login</h1>
             <Row className="mt-5">
                 <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
                     <Form>

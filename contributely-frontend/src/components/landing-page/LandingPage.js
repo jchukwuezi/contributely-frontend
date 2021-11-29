@@ -7,7 +7,7 @@ const loginPathOrg = "/login"
 const loginPathDonor = "/donor-login"
 
 //first page that user sees when they log in
-const Homepage = () =>{
+const LandingPage = () =>{
 
     const navigate = useNavigate();
     //handler for the different routes
@@ -47,4 +47,4 @@ const Homepage = () =>{
     );
 }
 
-export default Homepage;
+export default LandingPage;
