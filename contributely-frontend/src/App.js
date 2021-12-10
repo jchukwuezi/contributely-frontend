@@ -5,6 +5,7 @@ import DonorRegister from './components/donor-components/donor-register/DonorReg
 import DonorLogin from './components/donor-components/donor-login/DonorLogin';
 import LandingPage from './components/landing-page/LandingPage';
 import InputInterests from './components/donor-components/donor-input-interest/InputInterest'
+import DonorHomepage from './components/donor-components/donor-homepage/DonorHomepage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/donor-register" element={<DonorRegister/>}/>
       <Route path="/donor-login" element={<DonorLogin/>}/>
       <Route path="input-interest" element={<InputInterests/>}/>
+      <Route path="donor/homepage" element={<DonorHomepage/>}/>
       </Routes>
     </div>
   );

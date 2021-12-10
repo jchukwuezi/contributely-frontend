@@ -30,12 +30,18 @@ export const Login = () => {
         axios({
             method: "post",
             data: {
-                email: loginOrgEmail,
+                username: loginOrgEmail,
                 password: loginOrgPassword
             },
             withCredentials: true,
-            url:"http://localhost:4000/login"
-        }).then((res) => console.log(res));
+            url:"http://localhost:4000/api/organisations/login"
+        }).then(res => {
+            console.log('login response : ')
+            console.log(res)
+        }).catch(error => {
+            console.log('login error: ')
+            console.log(error)
+        })
        //getUser();
     };
 

@@ -1,39 +1,44 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {Col, Container, Row, Form, Button} from 'react-bootstrap';
 export const DonorRegister = () =>{
-
+    const navigate = useNavigate()
 
     //storing user inputs in state
     const [registerDonorName, setDonorName] = useState("")
     const [registerDonorEmail, setDonorEmail] =  useState("")
     const [registerDonorPassword, setDonorPassword] = useState("")
 
-    const donorRegister = () => {
-        console.log("Register button has been clicked");
-        //ceating axios instance
-        axios({
-            method: "post",
-            data:{
-                donorName: registerDonorName,
-                donorEmail: registerDonorEmail,
-                donorPassword: registerDonorPassword
-            },
-            withCredentials: true,
-            url: "http://localhost:4000/api/donors/register"
-        }).then((res) => console.log(res))
-        .catch(error => {
-            console.log(error.response.request._response);
-        });
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        fetch("http://localhost:4000/api/donors/register", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: registerDonorName,
+                email: registerDonorEmail,
+                password: registerDonorPassword
+            })
+        })
+        .then(async res => {
+            if(!res.ok){
+                alert(await res.text())
+            }
+            else{
+                alert('Registration successful')
+                console.log(`New user ${registerDonorName} added`)
+                navigate("/donor-login")
+            }
+        })
     }
-
-
+      
+        
     return(
         <Container>
             <h1 className="text-primary mt-5 p-3 text-center rounded">Donor Register</h1>
             <Row className="mt-5">
                 <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
 
                         <Form.Group className="mt-2">
                             <Form.Label>Name </Form.Label>
@@ -55,7 +60,7 @@ export const DonorRegister = () =>{
                             <Form.Control type="password" placeholder="Re-enter password"/>   
                         </Form.Group>
 
-                        <Button className="mt-5" variant="primary btn-block" type="submit" onClick={donorRegister}>
+                        <Button className="mt-5" variant="primary btn-block" type="submit">
                             Submit
                         </Button>
 
