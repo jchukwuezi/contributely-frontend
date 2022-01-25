@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col} from "react-bootstrap";
+import DonorNavbar from "../../shared/navbar/DonorNavbar";
 
 export const DonorHomepage = () => {
     const navigate = useNavigate()
@@ -32,14 +32,7 @@ export const DonorHomepage = () => {
     })
 
     return(
-        <Container>
-        <h1 className="text-primary mt-5 p-3 text-center rounded">Hello {username} Welcome to the Contributely app </h1>
-            <Row className="mt-5">
-                <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                
-                </Col>
-            </Row>
-        </Container>
+        <DonorNavbar />
     )
 
 
