@@ -2,9 +2,9 @@ import React from "react";
 import {Col, Container, Row, Button, Card} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 const registerPathOrg = "/register";
-const registerPathDonor = "/donor-register"
+const registerPathDonor = "/donor/register"
 const loginPathOrg = "/login"
-const loginPathDonor = "/donor-login"
+const loginPathDonor = "/donor/login"
 
 //first page that user sees when they log in
 const LandingPage = () =>{

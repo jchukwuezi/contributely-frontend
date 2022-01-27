@@ -1,13 +1,16 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import DonorNavbar from "../../shared/navbar/DonorNavbar";
+import {loggedInDonor, checkAuthDonor} from "../../../actions/auth"
+
 
 export const DonorHomepage = () => {
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     //getting user's name
-    const [username, setUsername] = useState("");
+    //const [username, setUsername] = useState("");
 
     //sending get request to api to get current user stored in the sessions name
+    /*
     useEffect(() => {
         fetch("http://localhost:4000/api/donors/auth/donor", {
             credentials: 'include',
@@ -30,6 +33,7 @@ export const DonorHomepage = () => {
             }
         })
     })
+    */
 
     return(
         <DonorNavbar />
