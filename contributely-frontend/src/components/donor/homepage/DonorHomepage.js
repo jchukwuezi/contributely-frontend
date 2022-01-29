@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import DonorNavbar from "../../shared/navbar/DonorNavbar";
+import CausesByInterest from "../causes/CausesByInterest";
 import {loggedInDonor, checkAuthDonor} from "../../../actions/auth"
 
 
@@ -36,7 +37,11 @@ export const DonorHomepage = () => {
     */
 
     return(
-        <DonorNavbar />
+        <div>
+            <DonorNavbar />
+            <h1 className="mt-5 p-3 text-center">Causes Based on your Interests</h1>
+            <CausesByInterest />
+        </div>
     )
 
 
