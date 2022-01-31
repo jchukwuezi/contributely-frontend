@@ -1,10 +1,7 @@
 import React from "react";
 import { Nav, Navbar, Container} from "react-bootstrap";
-import {loggedInDonor, checkAuthDonor} from '../../../actions/auth'
 
 const OrgNavbar = () => {
-    checkAuthDonor()
-    const name = loggedInDonor.name
     return (
         <Navbar variant="success" bg="dark">
             <Container>
@@ -17,7 +14,7 @@ const OrgNavbar = () => {
                 </Nav>
                 <Navbar.Collapse className="justify content-end">
                     <Navbar.Text>
-                        Signed in as <a href="#login"> {name} </a>
+                        Signed in as <a href="#login"> </a>
                     </Navbar.Text>
                 </Navbar.Collapse>
             </Container>
