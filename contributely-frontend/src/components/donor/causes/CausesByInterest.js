@@ -29,24 +29,20 @@ const CausesByInterest = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    //function to render card 
-    //writing it like this to render it easeier
-    /*
     if (causeData.length === 0){
         return (
             <Container>
-                <Row>
+                <Row className="mt-2">
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
                         <h1 className="mt-5 p-3 text-center">No Causes found</h1>
                         <p className="mt-2 p-3 text-center rounded">To find some suggested causes, please add some interests</p> 
-                        <Button variant="primary btn-block"> Add Interests</Button>
+                        <Button variant="primary btn-block" onClick={()=> navigate("/donor/input-interest")}> Add Interests</Button>
                     </Col>
                 </Row>
             </Container>
         )
     }
-    */
-
+    
     return(
         <Container>
             <h1 className="mt-5 p-3 text-center">Causes Based on your Interests</h1>

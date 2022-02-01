@@ -36,6 +36,7 @@ const DonorNavbar = () => {
                     <Nav.Link>Home</Nav.Link>
                     <Nav.Link>Groups</Nav.Link>
                     <Nav.Link>Account</Nav.Link>
+                    <Nav.Link onClick={()=> navigate("/donor/input-interest")}>Interests</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
