@@ -1,12 +1,13 @@
-import {React, useEffect, useState} from "react";
+import React, {useState, useEffect} from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, Row, Col, Button } from "react-bootstrap";
-const CausesByInterest = () => {
-    const [causeData, setCauseData] = useState([])
+
+const ViewAllInitiatives = () => {
+    const [initiativeData, setInitiativeData] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch("http://localhost:4000/api/donors/get-causes", {
+        fetch("http://localhost:4000/api/initiatives/get", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},
@@ -21,47 +22,50 @@ const CausesByInterest = () => {
                 console.log(res)
                 const getData = async() => {
                     const data = await res.json()
-                    setCauseData(data.slice(0,3))
+                    setInitiativeData(data)
                 }
                 getData()
             }
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
-    if (causeData.length === 0){
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
+    if(initiativeData.length === 0){
         return (
             <Container>
                 <Row className="mt-2">
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                        <h1 className="mt-5 p-3 text-center">No Causes found</h1>
-                        <p className="mt-2 p-3 text-center rounded">To find some suggested causes, please add some interests</p> 
-                        <Button variant="primary btn-block" onClick={()=> navigate("/donor/input-interest")}> Add Interests</Button>
+                        <h1 className="mt-5 p-3 text-center">No Initiatives found</h1>
+                        <p className="mt-2 p-3 text-center rounded">Please add some interests so that you can start taking donations</p> 
+                        <Button variant="success btn-block" onClick={()=> navigate()}> Add Interests</Button>
                     </Col>
                 </Row>
             </Container>
         )
     }
-    
-    return(
+
+    return (
         <Container>
-            <h1 className="mt-5 p-3 text-center">Causes Based on your Interests</h1>
+            <h1 className="mt-5 p-3 text-center">Initiatives created by this Organisation</h1>
             <Row>
-            {causeData.map((causeData, k) => (
+             {initiativeData.map((initiativeData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>
-                        <Card.Img src={causeData.image}  />
                         <Card.Body>
-                            <Card.Title>{causeData.title}</Card.Title>
-                            <Card.Text>{causeData.summary}</Card.Text>
-                            <Button>Add to Collection</Button>
+                            <Card.Title>{initiativeData.title}</Card.Title>
+                            <Card.Text>{initiativeData.description}</Card.Text>
+                            <Card.Text>{initiativeData.status} </Card.Text>
+                            <Button>View Initiative</Button>
                         </Card.Body>
                     </Card>
                 </Col>
             ))}
             </Row>
-        </Container>
+    </Container>
     )
+
+
 }
 
-export default CausesByInterest;
+export default ViewAllInitiatives;
