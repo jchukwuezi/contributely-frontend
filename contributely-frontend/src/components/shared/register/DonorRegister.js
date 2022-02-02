@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Col, Container, Row, Form, Button} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
+import CountrySelect from 'react-bootstrap-country-select'
+
 export const DonorRegister = () =>{
     const navigate = useNavigate()
 
@@ -8,7 +12,8 @@ export const DonorRegister = () =>{
     const [registerDonorName, setDonorName] = useState("")
     const [registerDonorEmail, setDonorEmail] =  useState("")
     const [registerDonorPassword, setDonorPassword] = useState("")
-
+    const [registerCountry, setRegisterCountry] = useState(null)
+    
     const handleSubmit = (e) =>{
         e.preventDefault()
         fetch("http://localhost:4000/api/donors/register", {
@@ -17,7 +22,9 @@ export const DonorRegister = () =>{
             body: JSON.stringify({
                 name: registerDonorName,
                 email: registerDonorEmail,
-                password: registerDonorPassword
+                password: registerDonorPassword,
+                country: registerCountry.name,
+                countryCode: registerCountry.id
             })
         })
         .then(async res => {
@@ -58,6 +65,14 @@ export const DonorRegister = () =>{
                         <Form.Group className="mt-2">
                             <Form.Label>Re-enter Password </Form.Label>
                             <Form.Control type="password" placeholder="Re-enter password"/>   
+                        </Form.Group>
+
+                        <Form.Group className="mt-2">
+                            <Form.Label>Enter your country </Form.Label>
+                            <CountrySelect
+                                value={registerCountry}
+                                onChange={setRegisterCountry}
+                            />
                         </Form.Group>
 
                         <Button className="mt-5" variant="primary btn-block" type="submit">
