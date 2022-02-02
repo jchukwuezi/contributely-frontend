@@ -3,7 +3,7 @@ import { Nav, Navbar, Container} from "react-bootstrap";
 
 const OrgNavbar = () => {
     return (
-        <Navbar variant="success" bg="dark">
+        <Navbar variant="dark" bg="success">
             <Container>
                 <Navbar.Brand> Contributely for Organisations </Navbar.Brand>
                 <Navbar.Toggle />

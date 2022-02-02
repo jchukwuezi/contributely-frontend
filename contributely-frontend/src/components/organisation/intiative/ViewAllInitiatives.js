@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const ViewAllInitiatives = () => {
@@ -55,8 +55,8 @@ const ViewAllInitiatives = () => {
                         <Card.Body>
                             <Card.Title>{initiativeData.title}</Card.Title>
                             <Card.Text>{initiativeData.description}</Card.Text>
-                            <Card.Text>{initiativeData.status} </Card.Text>
-                            <Button>View Initiative</Button>
+                            <Badge bg="success" className="mb-3">Status: {initiativeData.status} </Badge>
+                            <Button variant="success">View Initiative</Button>
                         </Card.Body>
                     </Card>
                 </Col>
