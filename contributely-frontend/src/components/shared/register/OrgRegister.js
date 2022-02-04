@@ -9,6 +9,7 @@ export const OrgRegister = () => {
     const [registerOrgName, setRegisterOrgName] = useState("")
     const [registerOrgEmail, setRegisterOrgEmail] =  useState("")
     const [registerOrgPassword, setRegisterOrgPassword] = useState("")
+    const [registerOrgDescription, setRegisterOrgDescription] = useState("")
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +19,7 @@ export const OrgRegister = () => {
             body: JSON.stringify({
                 name: registerOrgName,
                 email: registerOrgEmail,
+                description: registerOrgDescription,
                 password: registerOrgPassword
             })
         })
@@ -60,6 +62,11 @@ export const OrgRegister = () => {
                             <Form.Label>Re-enter Password </Form.Label>
                             <Form.Control type="password" placeholder="Re-enter password"/>   
                         </Form.Group>
+
+                        <Form.Group className="mt-2">
+                            <Form.Label>Organisation description </Form.Label>
+                            <Form.Control type="text" placeholder="Please describe your organisation in a few small words." onChange = {e => setRegisterOrgDescription(e.target.value)}/>   
+                       </Form.Group>
 
                         <Button className="mt-5" variant="success btn-block" type="submit">
                             Submit

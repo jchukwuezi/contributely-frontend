@@ -1,7 +1,7 @@
 import React from "react";
 import {Col, Container, Row, Button, Card} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-const registerPathOrg = "/register";
+const registerPathOrg = "/org/register";
 const registerPathDonor = "/donor/register"
 const loginPathOrg = "/org/login"
 const loginPathDonor = "/donor/login"

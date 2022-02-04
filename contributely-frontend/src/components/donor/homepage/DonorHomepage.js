@@ -4,6 +4,7 @@ import DonorNavbar from "../../shared/navbar/DonorNavbar";
 import CausesByInterest from "../causes/CausesByInterest";
 import {loggedInDonor, checkAuthDonor} from "../../../auth/auth"
 import JustGivingCharities from "../charities/JustGivingCharities";
+import CausesByCountry from "../causes/CausesByCountry";
 
 
 export const DonorHomepage = () => {
@@ -41,6 +42,7 @@ export const DonorHomepage = () => {
         <div>
             <DonorNavbar />
             <CausesByInterest />
+            <CausesByCountry />
             <JustGivingCharities />
         </div>
     )
