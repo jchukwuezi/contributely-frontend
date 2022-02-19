@@ -38,7 +38,6 @@ const Interests = () => {
 
 
     //function to add interests to the users list of interests
-    /*
     const updateTags = (e) =>{
         e.preventDefault()
         console.log([addedTags])
@@ -63,21 +62,8 @@ const Interests = () => {
                     setTags(data)
                 }
                 getData()
+                */
             }
-        })
-    }
-    */
-
-    const updateTags = (e) => {
-        e.preventDefault()
-        fetch("http://localhost:4000/api/donors/add-interests", {
-            credentials: 'include',
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                tags: localTags
-            }),
-            mode: 'cors'
         })
     }
 

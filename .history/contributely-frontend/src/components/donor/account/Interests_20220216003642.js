@@ -8,9 +8,8 @@ import "@pathofdev/react-tag-input/build/index.css"
 const Interests = () => {
     
     const [tags, setTags] = useState([])
-    const [addedTags, setAddedTags] = useState([])
-    const [localTags, setLocalTags] = useState([])
-    
+    const [addedTags, setTagsToAdd] = useState([])
+
     const navigate = useNavigate()
     useEffect(() => {
         fetch("http://localhost:4000/api/donors/get-interests", {
@@ -38,7 +37,6 @@ const Interests = () => {
 
 
     //function to add interests to the users list of interests
-    /*
     const updateTags = (e) =>{
         e.preventDefault()
         console.log([addedTags])
@@ -63,21 +61,8 @@ const Interests = () => {
                     setTags(data)
                 }
                 getData()
+                */
             }
-        })
-    }
-    */
-
-    const updateTags = (e) => {
-        e.preventDefault()
-        fetch("http://localhost:4000/api/donors/add-interests", {
-            credentials: 'include',
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                tags: localTags
-            }),
-            mode: 'cors'
         })
     }
 
@@ -85,34 +70,27 @@ const Interests = () => {
     
     return(
         <Container>
-        <h4 className="mt-4">Your Interests</h4>
+        <h4 className="mt-4">View your interests</h4>
         <Row className="mb-4">
-            <ReactTagInput 
-                tags={tags}
-                onChange={(newTags) => setTags(newTags)}
-                removeOnBackspace={false}
-                readOnly={true}
-                placeholder=""
-            />
+            {tags.map((tag, k) => (
+                <Button className="mb-3" key={k} xs={12} md={4} lg={3} size="sm">
+                    {tag}
+                </Button>
+            ))}
         </Row>
         
         <h4>Add more</h4>
         <p>Add interests in the form below, seperating them with commas</p>
         <Row>
-            <ReactTagInput
-                tags={addedTags}
-                onChange={(newAddedTags) => {
-                    setAddedTags(newAddedTags)
-                    setLocalTags(newAddedTags)
-                }}
-                removeOnBackspace={false}
-            />
-            <Button className="mt-2" onClick={()=>{
-                console.log("These are the tags")
-                console.log(localTags)
-            }}>
-            
-            </Button>
+            <InputGroup>
+                <FormControl
+                    placeholder="Entering tags, seperating with comments"
+                    aria-describedby="basic-addon2"
+                    onChange= {e => setTagsToAdd(e.target.value)}
+                />
+
+                <Button variant="primary" id="button-addon2" onClick={updateTags}>Add Interests</Button>
+            </InputGroup>
         </Row>
         </Container>
     )
