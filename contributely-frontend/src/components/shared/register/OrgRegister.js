@@ -29,7 +29,7 @@ export const OrgRegister = () => {
             }
             else{
                 alert('Registration successful')
-                //console.log(`New user ${registerOrgName} added`)
+                console.log(`New user ${registerOrgName} added`)
                 console.log('Printing out stripe express details')
                 console.log(account)
                 navigate("/org/login")

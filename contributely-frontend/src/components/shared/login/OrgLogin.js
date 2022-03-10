@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Col, Container, Row, Form, Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 
 export const OrgLogin = () => {
-    
     const navigate = useNavigate()
     const [loginOrgEmail, setLoginOrgEmail] =  useState("")
     const [loginOrgPassword, setLoginOrgPassword] = useState("")
+    const [onboardUrl, setOnboardUrl] = useState("")
+
+    useEffect(()=>{
+        if(onboardUrl !== ""){
+            window.location.href = onboardUrl
+        }
+    })
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -29,11 +35,23 @@ export const OrgLogin = () => {
                 errorCheck();
             }
             else{
-                const successCheck = async() => {
-                    alert(await res.text())
+                if (res.status === 202){
+                    const getUrl = async () => {
+                        const data = await res.text()
+                        console.log(data)
+                        setOnboardUrl(data)
+                        alert("Login successful, redirecting to stripes onboarding")
+                    }
+                    getUrl()
                 }
-                successCheck();
-                navigate("/org/homepage")
+
+                else{
+                    const successCheck = async() => {
+                        alert(await res.text())
+                    }
+                    successCheck();
+                    navigate("/org/homepage")
+                }
             }
         })
     }

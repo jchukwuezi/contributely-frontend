@@ -9,7 +9,9 @@ import DonorHomepage from './components/donor/homepage/DonorHomepage';
 import InterestInput from './components/donor/input-interest/InputInterest';
 import AccountTab from './components/donor/account/AccountTab';
 import AddInitiative from './components/organisation/intiative/AddInitiative';
-
+import FailureOnboard from './components/organisation/stripe-onboard/FailureOnboard';
+import StripeRedirect from './components/organisation/stripe-onboard/StripeRedirect';
+import SuccessOnBoard from './components/organisation/stripe-onboard/SuccessOnBoard';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
       <Route path="/donor/homepage" element={<DonorHomepage/>}/>
       <Route path="/donor/account" element={<AccountTab/>}/>
       <Route path="/org/initiative/add" element={<AddInitiative/>}/>
+      <Route path="/org/stripe/onboard/success" element={<SuccessOnBoard/>}/>
+      <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>
       </Routes>
     </div>
   );
