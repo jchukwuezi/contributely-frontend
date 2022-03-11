@@ -23,6 +23,9 @@ export const OrgRegister = () => {
                 password: registerOrgPassword
             })
         })
+        .catch((err) => {
+            console.error(err)
+        })
         .then(async res => {
             if(!res.ok){
                 alert(await res.text())
