@@ -15,6 +15,7 @@ export const SuccessOnBoard = () => {
 
         if (!sessOrg){
             alert('Unauthorized, please log in to view this page')
+            navigate("/org/login")
         }
 
         fetch("http://localhost:4000/api/organisations/activate-stripe", {

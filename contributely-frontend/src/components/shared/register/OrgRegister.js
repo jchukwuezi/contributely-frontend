@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Col, Container, Row, Form, Button} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
+import ReactTagInput from "@pathofdev/react-tag-input"
+import "@pathofdev/react-tag-input/build/index.css"
 //register component and functionality
 export const OrgRegister = () => {
     const navigate = useNavigate()
@@ -10,6 +12,7 @@ export const OrgRegister = () => {
     const [registerOrgEmail, setRegisterOrgEmail] =  useState("")
     const [registerOrgPassword, setRegisterOrgPassword] = useState("")
     const [registerOrgDescription, setRegisterOrgDescription] = useState("")
+    const [registerOrgTags, setRegisterOrgTags] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +23,8 @@ export const OrgRegister = () => {
                 name: registerOrgName,
                 email: registerOrgEmail,
                 description: registerOrgDescription,
-                password: registerOrgPassword
+                password: registerOrgPassword,
+                tags: setRegisterOrgTags
             })
         })
         .catch((err) => {
@@ -71,6 +75,16 @@ export const OrgRegister = () => {
                         <Form.Group className="mt-2">
                             <Form.Label>Organisation description </Form.Label>
                             <Form.Control type="text" placeholder="Please describe your organisation in a few small words." onChange = {e => setRegisterOrgDescription(e.target.value)}/>   
+                       </Form.Group>
+
+                       <Form.Group className="mt-2">
+                             <Form.Label>Add some tags for other users to find your organisation </Form.Label>
+                             <ReactTagInput 
+                             tags={registerOrgTags}
+                             onChange={(newTags) => setRegisterOrgTags(newTags)}
+                             removeOnBackspace={false}
+                             placeholder=""
+                            />
                        </Form.Group>
 
                         <Button className="mt-5" variant="success btn-block" type="submit">
