@@ -1,3 +1,4 @@
+/*
 const {sessDonor} = fetch("http://localhost:4000/api/donors/auth/donor", {
     credentials: 'include',
     method: 'GET',
@@ -32,3 +33,5 @@ export {
     sessOrg,
     sessDonor
 }
+
+*/

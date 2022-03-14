@@ -13,7 +13,7 @@ import FailureOnboard from './components/organisation/stripe-onboard/FailureOnbo
 import StripeRedirect from './components/organisation/stripe-onboard/StripeRedirect';
 import SuccessOnBoard from './components/organisation/stripe-onboard/SuccessOnBoard';
 import Groups from './components/donor/causes/contributely-causes/Groups';
-import GroupInitiative from './components/donor/causes/contributely-causes/GroupInitiative';
+import GroupInitiativeDetail from './components/donor/causes/contributely-causes/GroupInitiativedDetail';
 import GroupInitiatives from './components/donor/causes/contributely-causes/GroupInitiatives';
 
 function App() {
@@ -33,8 +33,8 @@ function App() {
         <Route path="/org/stripe/onboard/success" element={<SuccessOnBoard/>}/>
         <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
-        <Route path="/donor/groups/initiatives" element={<GroupInitiatives/>}/>
-        <Route path="/donor/groups/initiatives/:initiativeId" element={<GroupInitiative />}/>
+        <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
+        <Route path="/donor/groups/initiatives/:initiativeId" element={<GroupInitiativeDetail />}/>
       </Routes>
     </div>
   );

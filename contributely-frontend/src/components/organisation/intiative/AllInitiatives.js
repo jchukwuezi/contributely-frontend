@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Button, Card, Col, Container, Row, Badge, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const ViewAllInitiatives = () => {
+const AllInitiatives = () => {
     const [intiativeData, setInitiativeData] = useState([])
     const [state, setState] = useState({})
     const navigate = useNavigate()
@@ -74,4 +74,4 @@ const ViewAllInitiatives = () => {
 
 }
 
-export default ViewAllInitiatives;
+export default AllInitiatives;
