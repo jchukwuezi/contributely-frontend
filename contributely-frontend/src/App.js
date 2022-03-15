@@ -15,6 +15,13 @@ import SuccessOnBoard from './components/organisation/stripe-onboard/SuccessOnBo
 import Groups from './components/donor/causes/contributely-causes/Groups';
 import GroupInitiativeDetail from './components/donor/causes/contributely-causes/GroupInitiativedDetail';
 import GroupInitiatives from './components/donor/causes/contributely-causes/GroupInitiatives';
+import {Elements} from '@stripe/react-stripe-js'
+import {loadStripe} from '@stripe/stripe-js'
+import DonationPdf from './components/donor/causes/contributely-causes/DonationPdf';
+import {PDFViewer} from '@react-pdf/renderer'
+
+
+const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
 function App() {
   return (
@@ -34,7 +41,12 @@ function App() {
         <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
-        <Route path="/donor/groups/initiatives/:initiativeId" element={<GroupInitiativeDetail />}/>
+        <Route path="/donor/:groupId/initiatives/:initiativeId" element={
+          <Elements stripe={stripePromise}>
+            <GroupInitiativeDetail/>
+          </Elements>      
+        }/>
+        <Route path="/donation-pdf" element={<DonationPdf/>}/>
       </Routes>
     </div>
   );

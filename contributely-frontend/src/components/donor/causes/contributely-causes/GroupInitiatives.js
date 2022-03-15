@@ -1,7 +1,7 @@
 //this component will show the initiatives of the groups that match the donor's interests
 import {React, useState, useEffect} from "react"
 import { Container, Row, Col, Button, Card } from "react-bootstrap"
-import { useNavigate, useParams, useLocation} from "react-router-dom"
+import { useNavigate, useParams, Link, useLocation} from "react-router-dom"
 
 
 const GroupInitiatives = () => {
@@ -59,6 +59,9 @@ const GroupInitiatives = () => {
         )
     }
 
+    console.log("initative Data")
+    console.log(groupData)
+
     return(
         <Container>
             <h2>Initiatives created by this Organisation</h2>
@@ -71,7 +74,9 @@ const GroupInitiatives = () => {
                             <Card.Text>{groupData.description}</Card.Text>
                             <Card.Text>€{groupData.goalAmount} </Card.Text>
                             <Card.Text>{groupData.creationDate} </Card.Text>
-                            <Button variant="primary">View Initiative</Button>
+                            <Link to={`/donor/${groupId}/initiatives/${groupData._id}`}>
+                                <Button variant="primary">View Initiative</Button>
+                            </Link>
                         </Card.Body>
                     </Card>
                 </Col>

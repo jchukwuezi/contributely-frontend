@@ -37,16 +37,7 @@ const Groups = () => {
             }
         })
     }
-
-    const handleGroupClick = (groupId) => {
-        navigate({
-            pathname: `/donor/:${groupId}/initiatives`,
-            state:{
-                groupId
-            }
-        })
-    }
-
+    
     if (groups.length === 0){
         return(
             <Container>
