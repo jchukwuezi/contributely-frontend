@@ -47,7 +47,9 @@ const JustGivingCharities = () =>{
                                 <Card.Title>{charityData.charityDisplayName}</Card.Title>
                                 <Card.Text>{charityData.description}</Card.Text>
                                 <Card.Text>{charityData.registrationNumber}</Card.Text>
-                                <Button>View Charity</Button>
+                                <div className="d-grid">
+                                    <Button>View Charity</Button>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

@@ -5,6 +5,8 @@ import CausesByInterest from "../causes/CausesByInterest";
 import {loggedInDonor, checkAuthDonor} from "../../../auth/auth"
 import JustGivingCharities from "../charities/JustGivingCharities";
 import CausesByCountry from "../causes/CausesByCountry";
+import GoFundMeCauses from "../causes/GoFundMeCauses";
+import { Row } from "react-bootstrap";
 
 
 export const DonorHomepage = () => {
@@ -41,9 +43,12 @@ export const DonorHomepage = () => {
     return(
         <div>
             <DonorNavbar />
-            <CausesByInterest />
-            <CausesByCountry />
-            <JustGivingCharities />
+            <Row className="mt-5">
+                <CausesByInterest />
+                <CausesByCountry />
+                <GoFundMeCauses />
+                <JustGivingCharities />
+            </Row>
         </div>
     )
 

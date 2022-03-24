@@ -34,7 +34,7 @@ const CausesByCountry = () =>{
 
     return(
         <Container>
-            <h2 className="mt-5 p-3 text-center">Causes in your country</h2>
+            <h2 className="mt-5 p-3 text-center">Global Giving Causes in Your Country</h2>
             <Row>
             {causeData.map((causeData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
@@ -43,7 +43,10 @@ const CausesByCountry = () =>{
                         <Card.Body>
                             <Card.Title>{causeData.title}</Card.Title>
                             <Card.Text>{causeData.summary}</Card.Text>
-                            <Button>Add to Collection</Button>
+                            <div className="d-grid gap-2">
+                                <Button>View</Button>
+                                <Button>Add to Collection</Button>
+                            </div>
                         </Card.Body>
                     </Card>
                 </Col>
