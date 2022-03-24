@@ -35,7 +35,7 @@ const CausesByCountry = () =>{
     return(
         <Container>
             <h2 className="mt-5 p-3 text-center">Global Giving Causes in Your Country</h2>
-            <Row>
+            <Row className="justify-content-center">
             {causeData.map((causeData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>

@@ -38,7 +38,7 @@ const JustGivingCharities = () =>{
     return(
         <Container>
         <h2 className="mt-5 p-3 text-center">Charities that you may be interested in</h2>
-            <Row className="text">
+            <Row className="justify-content-center">
                 {charityData.map((charityData, k) => (
                     <Col key={k} xs={12} md={4} lg={3}>
                         <Card>

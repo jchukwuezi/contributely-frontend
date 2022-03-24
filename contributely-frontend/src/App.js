@@ -6,7 +6,6 @@ import DonorRegister from './components/shared/register/DonorRegister';
 import DonorLogin from './components/shared/login/DonorLogin';
 import LandingPage from './components/shared/landing-page/LandingPage';
 import DonorHomepage from './components/donor/homepage/DonorHomepage';
-import InterestInput from './components/donor/input-interest/InputInterest';
 import AccountTab from './components/donor/account/AccountTab';
 import AddInitiative from './components/organisation/intiative/AddInitiative';
 import FailureOnboard from './components/organisation/stripe-onboard/FailureOnboard';
@@ -33,7 +32,6 @@ function App() {
         <Route path="/org/homepage" element={<OrgHomepage/>}/>
         <Route path="/donor/register" element={<DonorRegister/>}/>
         <Route path="/donor/login" element={<DonorLogin/>}/>
-        <Route path="/donor/input-interest" element={<InterestInput/>}/>
         <Route path="/donor/homepage" element={<DonorHomepage/>}/>
         <Route path="/donor/account" element={<AccountTab/>}/>
         <Route path="/org/initiative/add" element={<AddInitiative/>}/>

@@ -36,7 +36,9 @@ const CausesByInterest = () => {
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
                         <h1 className="mt-5 p-3 text-center">No Causes found</h1>
                         <p className="mt-2 p-3 text-center rounded">To find some suggested causes, please add some interests</p> 
-                        <Button variant="primary btn-block" onClick={()=> navigate("/donor/account")}> Add Interests</Button>
+                        <div className="d-grid">
+                            <Button variant="primary btn-block" onClick={()=> navigate("/donor/account")}> Add Interests</Button>
+                        </div>
                     </Col>
                 </Row>
             </Container>
@@ -46,7 +48,7 @@ const CausesByInterest = () => {
     return(
         <Container>
             <h2 className="mt-5 p-3 text-center">Global Giving Based on your Interests</h2>
-            <Row>
+            <Row className="justify-content-center">
             {causeData.map((causeData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>

@@ -69,7 +69,6 @@ const Interests = () => {
     */
 
     const updateTags = (e) => {
-        e.preventDefault()
         fetch("http://localhost:4000/api/donors/add-interests", {
             credentials: 'include',
             method: 'POST',
@@ -110,8 +109,10 @@ const Interests = () => {
             <Button className="mt-2" onClick={()=>{
                 console.log("These are the tags")
                 console.log(localTags)
+                updateTags(localTags)
+                window.location.reload(false)
             }}>
-            
+                Add Interests
             </Button>
         </Row>
         </Container>

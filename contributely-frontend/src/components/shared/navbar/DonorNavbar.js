@@ -55,6 +55,7 @@ const DonorNavbar = () => {
                     <Nav.Link>Groups</Nav.Link>
                     */}
                     <Nav.Link onClick={()=> navigate("/donor/account")}>Account</Nav.Link>
+                    <Nav.Link onClick={()=> navigate("")}>My Collection</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
