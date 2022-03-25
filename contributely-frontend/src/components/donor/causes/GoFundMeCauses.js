@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
-import GoFundMeModal from "./GoFundMeModal";
+import GoFundMeModal from "./modals/GoFundMeModal";
 const GoFundMeCauses = () =>{
     const [gfData, setGfData] = useState([])
     const [amount, setAmount] = useState("")

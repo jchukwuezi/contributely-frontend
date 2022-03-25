@@ -1,9 +1,14 @@
-import {React, useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
-import { Card, Container, Row, Col, Button, Modal, Badge, Stack} from "react-bootstrap";
+import {React} from "react";
+import {Button, Modal, Badge, Stack} from "react-bootstrap";
 
 const GoFundMeModal = (props) =>{
    const {show, onClose, goalAmount, url, title, categories} = props;
+
+   const openInNewTab = (link) =>{
+       const newWindow = window.open(link, '_blank', 'noopener,noreferrer')
+       if(newWindow) newWindow.opener = null;
+   }
+
     return(
         <Modal show={show} onHide={onClose} centered>
             <Modal.Header closeButton>
@@ -16,7 +21,7 @@ const GoFundMeModal = (props) =>{
                 </Stack>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary">Open on the Web</Button>
+                <Button variant="secondary" onClick={()=> openInNewTab(url)}>Open on the Web</Button>
                 <Button variant="primary">Add To Collection</Button>
             </Modal.Footer>
         </Modal>

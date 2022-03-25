@@ -1,10 +1,20 @@
 import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
+import GlobalGivingCountryModal from "./modals/GlobalGivingCountryModal";
 
 const CausesByCountry = () =>{
     const [causeData, setCauseData] = useState([])
+    const [goal, setGoal] = useState("")
+    const [title, setTitle] = useState("")
+    const [impact, setImpact] = useState("")
+    const [themes, setThemes] = useState("")
+    const [url, setUrl] = useState("")
     const navigate = useNavigate()
+
+    const [show, setShow] = useState(false)
+    const handleShow = () => setShow(true)
+    const handleClose = () => setShow(false)
 
     useEffect(()=>{
         fetch("http://localhost:4000/api/donors/get-causes/country", {
@@ -44,7 +54,14 @@ const CausesByCountry = () =>{
                             <Card.Title>{causeData.title}</Card.Title>
                             <Card.Text>{causeData.summary}</Card.Text>
                             <div className="d-grid gap-2">
-                                <Button>View</Button>
+                                <Button onClick={()=>{
+                                    setGoal(causeData.goal)
+                                    setTitle(causeData.title)
+                                    setImpact(causeData.longTermImpact)
+                                    setUrl(causeData.url)
+                                    setThemes(causeData.themes.toString())
+                                    handleShow()
+                                }}>View</Button>
                                 <Button>Add to Collection</Button>
                             </div>
                         </Card.Body>
@@ -52,6 +69,7 @@ const CausesByCountry = () =>{
                 </Col>
             ))}
             </Row>
+            <GlobalGivingCountryModal show={show} onClose={handleClose} goal={goal} title={title} impact={impact} themes={themes} url={url}/>
         </Container>
     )
 

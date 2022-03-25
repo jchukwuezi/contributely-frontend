@@ -7,6 +7,18 @@ const AllInitiatives = () => {
     const [state, setState] = useState({})
     const navigate = useNavigate()
 
+    const formatDate = (date) =>{
+        const dt = new Date(date)
+        return dt.toLocaleDateString(
+            'en-gb',
+            {
+                year: 'numeric',
+                month: 'long',
+                day:'numeric'
+            }
+        )
+    }
+
     useEffect(()=>{
         APICallForInitiatives()
         return () => {
@@ -44,7 +56,9 @@ const AllInitiatives = () => {
                 <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
                     <h1 className="mt-5 p-3 text-center">No Initiatives found</h1>
                     <p className="mt-2 p-3 text-center rounded">Please add some initiatives so that you can start taking donations</p> 
-                    <Button variant="success btn-block" onClick={()=> navigate("/org/initiative/add")}> Add Initiatives</Button>
+                    <div className="d-grid">
+                        <Button variant="success btn-block" onClick={()=> navigate("/org/initiative/add")}> Add Initiatives</Button>
+                    </div>
                 </Col>
             </Row>
         </Container>
@@ -53,23 +67,28 @@ const AllInitiatives = () => {
 
     return(
         <Container>
-        <h2>Initiatives created by this Organisation</h2>
-        <Row>
+        <h2 className="mt-3 p-3 text-center">Initiatives created by this Organisation</h2>
+        <Row className="justify-content-center">
             {intiativeData.map((initiativeData, k) => (
             <Col key={k} xs={12} md={4} lg={3}>
                 <Card>
                     <Card.Body>
                         <Card.Title>{initiativeData.title}</Card.Title>
                         <Card.Text>{initiativeData.description}</Card.Text>
-                        <Badge bg="success" className="mb-3">{initiativeData.status} </Badge>
-                        <ProgressBar animated now={50} className="mb-3" variant="success"/>
+                        {initiativeData.active === false ? (
+                            <Badge bg="danger" className="mb-3">Status: Closed</Badge>
+                        ):(
+                            <Badge bg="success" className="mb-3">Status: Active</Badge>
+                         )}
+                        <ProgressBar animated now={initiativeData.amountToDateDonated/initiativeData.goalAmount*100} className="mb-3" variant="success"/>
                         <Button variant="success">View Initiative</Button>
                     </Card.Body>
+                    <Card.Footer>Creation Date: {formatDate(initiativeData.creationDate)}</Card.Footer>
                 </Card>
             </Col>
         ))}
        </Row>
-        </Container>
+    </Container>
     )
 
 }

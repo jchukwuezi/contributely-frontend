@@ -1,9 +1,20 @@
 import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
+import GlobalGivingInterestModal from "./modals/GlobalGivingInterestModal";
+
 const CausesByInterest = () => {
     const [causeData, setCauseData] = useState([])
+    const [country, setCountry] = useState("")
+    const [title, setTitle] = useState("")
+    const [mission, setMission] = useState("")
+    const [themes, setThemes] = useState("")
+    const [url, setUrl] = useState("")
     const navigate = useNavigate()
+
+    const [show, setShow] = useState(false)
+    const handleShow = () => setShow(true)
+    const handleClose = () => setShow(false)
 
     useEffect(() => {
         fetch("http://localhost:4000/api/donors/get-causes/interest", {
@@ -57,7 +68,14 @@ const CausesByInterest = () => {
                             <Card.Title>{causeData.title}</Card.Title>
                             <Card.Text>{causeData.summary}</Card.Text>
                             <div className="d-grid gap-2">
-                                <Button>View</Button>
+                                <Button onClick={()=>{
+                                    setMission(causeData.mission)
+                                    setTitle(causeData.title)
+                                    setCountry(causeData.country)
+                                    setUrl(causeData.url)
+                                    setThemes(causeData.themes.toString())
+                                    handleShow()
+                                }}>View</Button>
                                 <Button>Add to Collection</Button>
                             </div>
                         </Card.Body>
@@ -65,6 +83,7 @@ const CausesByInterest = () => {
                 </Col>
             ))}
             </Row>
+            <GlobalGivingInterestModal show={show} onClose={handleClose} mission={mission} title={title} country={country} themes={themes} url={url}/>
         </Container>
     )
 }

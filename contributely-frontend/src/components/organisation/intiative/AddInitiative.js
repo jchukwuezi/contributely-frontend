@@ -2,6 +2,8 @@ import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, InputGroup, FormControl, Row, Button, Col} from "react-bootstrap";
 import OrgNavbar from "../../shared/navbar/OrgNavbar";
+import ReactTagInput from "@pathofdev/react-tag-input"
+import "@pathofdev/react-tag-input/build/index.css"
 
 const AddInitiative = () => {
     
@@ -10,6 +12,8 @@ const AddInitiative = () => {
     const [description, setDescription] = useState("")
     const [goalAmount, setGoalAmount] = useState("")
     const [tags, setTags] = useState([])
+    const [addedTags, setAddedTags] = useState([])
+    const [localTags, setLocalTags] = useState([])
 
     
     const handleSubmit = (e) =>{
@@ -22,7 +26,7 @@ const AddInitiative = () => {
                 title: title,
                 description: description,
                 goalAmount: goalAmount,
-                tags: [tags]
+                tags: localTags
             })
         })
         .then(async (res) => {
@@ -31,7 +35,7 @@ const AddInitiative = () => {
             }
 
             else{
-                alert('New Initiative successfully created')
+                alert(`New Initiative ${title} successfully created`)
                 navigate("/org/homepage")
             }
         })
@@ -51,28 +55,34 @@ const AddInitiative = () => {
                             <Form.Control type="text" placeholder="Title of the Initiative" name="name" onChange={e => setTitle(e.target.value)}/>   
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Group className="mt-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Description</Form.Label>
                             <Form.Control as="textarea" rows={3} onChange={e => setDescription(e.target.value)}/>
                         </Form.Group>
                     
-                        <InputGroup className="mb-3">
+                        <InputGroup className="mt-3">
                             <InputGroup.Text>€</InputGroup.Text>
                             <FormControl aria-label="Amount (to the nearest euro)" onChange={e => setGoalAmount(e.target.value)}/>
                             <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
 
-                        <InputGroup>
-                        <FormControl
-                            placeholder="Enter tags that describe this initiative."
-                            onChange= {e => setTags(e.target.value)}
-                        />
-                        </InputGroup>
-
-                        <Button className="mt-5" variant="success btn-block" type="submit">
+                        <Form.Group className="mt-3">
+                            <ReactTagInput
+                            tags={addedTags}
+                            onChange={(newAddedTags) => {
+                                setAddedTags(newAddedTags)
+                                setLocalTags(newAddedTags)
+                            }}
+                            removeOnBackspace={true}
+                            placeholder="Add tags that describe this initiative, seperate them with enter key"
+                           />
+                        </Form.Group>
+                        
+                        <div className="d-grid">
+                            <Button className="mt-5" variant="success btn-block" type="submit">
                             Add Initiative
-                        </Button>
-
+                            </Button>
+                        </div>
                     </Form>
                 </Col>
                 </Row>
