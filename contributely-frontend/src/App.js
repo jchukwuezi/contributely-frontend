@@ -14,6 +14,8 @@ import SuccessOnBoard from './components/organisation/stripe-onboard/SuccessOnBo
 import Groups from './components/donor/causes/contributely-causes/Groups';
 import GroupInitiativeDetail from './components/donor/causes/contributely-causes/GroupInitiativedDetail';
 import GroupInitiatives from './components/donor/causes/contributely-causes/GroupInitiatives';
+import AllInitiatives from './components/organisation/intiative/AllInitiatives';
+import InitiativeDetails from './components/organisation/intiative/InitiativeDetails';
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import DonationPdf from './components/donor/causes/contributely-causes/DonationPdf';
@@ -37,6 +39,8 @@ function App() {
         <Route path="/org/initiative/add" element={<AddInitiative/>}/>
         <Route path="/org/stripe/onboard/success" element={<SuccessOnBoard/>}/>
         <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>
+        <Route path="/org/initiatives" element={<AllInitiatives/>}/>
+        <Route path="/org/initiatives/:initiativeId" element={<InitiativeDetails/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
         <Route path="/donor/:groupId/initiatives/:initiativeId" element={

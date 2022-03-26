@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button, Card, Col, Container, Row, Badge, ProgressBar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const AllInitiatives = () => {
     const [intiativeData, setInitiativeData] = useState([])
@@ -80,8 +80,11 @@ const AllInitiatives = () => {
                         ):(
                             <Badge bg="success" className="mb-3">Status: Active</Badge>
                          )}
+                         <Card.Text>Progress</Card.Text>
                         <ProgressBar animated now={initiativeData.amountToDateDonated/initiativeData.goalAmount*100} className="mb-3" variant="success"/>
-                        <Button variant="success">View Initiative</Button>
+                        <Link to={`/org/initiatives/${initiativeData._id}`}>
+                            <Button variant="success">View Initiative</Button>
+                        </Link>
                     </Card.Body>
                     <Card.Footer>Creation Date: {formatDate(initiativeData.creationDate)}</Card.Footer>
                 </Card>

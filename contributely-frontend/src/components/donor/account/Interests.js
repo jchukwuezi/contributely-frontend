@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from "react";
-import { InputGroup, FormControl, Button, Badge, Container, Row} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, Container, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ReactTagInput from "@pathofdev/react-tag-input"
 import "@pathofdev/react-tag-input/build/index.css"
@@ -37,37 +37,6 @@ const Interests = () => {
     }, [])
 
 
-    //function to add interests to the users list of interests
-    /*
-    const updateTags = (e) =>{
-        e.preventDefault()
-        console.log([addedTags])
-        fetch("http://localhost:4000/api/donors/add-interests", {
-            credentials: 'include',
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                tags: [addedTags]
-            }),
-            mode: 'cors'
-        })
-        .then((res) => {
-            if(!res.ok){
-                alert('Error with adding tags')
-            }
-            else{
-                console.log(res)
-                /*
-                const getData = async() => {
-                    const data = await res.json()
-                    setTags(data)
-                }
-                getData()
-            }
-        })
-    }
-    */
-
     const updateTags = (e) => {
         fetch("http://localhost:4000/api/donors/add-interests", {
             credentials: 'include',
@@ -80,8 +49,6 @@ const Interests = () => {
         })
     }
 
-
-    
     return(
         <Container>
         <h4 className="mt-4">Your Interests</h4>
