@@ -41,7 +41,7 @@ const CausesByInterest = () => {
     }, [])
 
     const addToCollection = (title, url, mission, themes) =>{
-        fetch("http://localhost:4000/api/onlinecauses/collection/add/gg-interest",{
+        fetch("",{
             credentials: 'include',
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -51,19 +51,6 @@ const CausesByInterest = () => {
                 mission: mission,
                 themes: themes
             }),
-        })
-        .then((res)=> {
-            if(!res.ok){
-                alert(res.text())
-            }
-            else{
-                console.log(res)
-                const getData = async() =>{
-                    //const data = await res.json()
-                    alert(await res.text())
-                }
-                getData()
-            }
         })
     }
 
@@ -103,9 +90,7 @@ const CausesByInterest = () => {
                                     setThemes(causeData.themes.toString())
                                     handleShow()
                                 }}>View</Button>
-                                <Button onClick={()=>{
-                                    addToCollection(causeData.title, causeData.url, causeData.mission, causeData.themes.toString())
-                                }}>Add to Collection</Button>
+                                <Button>Add to Collection</Button>
                             </div>
                         </Card.Body>
                     </Card>
