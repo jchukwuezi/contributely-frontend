@@ -36,7 +36,6 @@ const AllInitiatives = () => {
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
             }
 
             else{

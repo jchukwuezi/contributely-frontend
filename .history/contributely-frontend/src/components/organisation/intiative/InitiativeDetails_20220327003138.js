@@ -2,7 +2,8 @@ import {React, useEffect, useState} from "react"
 import { Container, Row, Col, Button, Card, Badge, Stack} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import formatDate from "../../../data/formatdate"
-
+import ReactTagInput from "@pathofdev/react-tag-input"
+import "@pathofdev/react-tag-input/build/index.css"
 
 const InitiativeDetails = () =>{
     const {initiativeId} = useParams();
@@ -28,7 +29,7 @@ const InitiativeDetails = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
+                navigate()
             }
             else{
                 console.log(res)
@@ -52,7 +53,6 @@ const InitiativeDetails = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
             }
             else{
                 console.log(res)

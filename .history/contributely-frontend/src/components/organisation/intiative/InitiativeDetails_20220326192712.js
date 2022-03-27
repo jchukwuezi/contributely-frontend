@@ -1,14 +1,14 @@
 import {React, useEffect, useState} from "react"
-import { Container, Row, Col, Button, Card, Badge, Stack} from "react-bootstrap"
+import { Container, Row, Col, Button, Card, Badge} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import formatDate from "../../../data/formatdate"
-
+import ReactTagInput from "@pathofdev/react-tag-input"
+import "@pathofdev/react-tag-input/build/index.css"
 
 const InitiativeDetails = () =>{
     const {initiativeId} = useParams();
     const [initativeDetail, setInitiativeDetail] = useState("");
     const [state, setState] = useState("")
-    const navigate = useNavigate()
 
     useEffect(()=>{
         initiativeDetailAPI()
@@ -28,7 +28,6 @@ const InitiativeDetails = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
             }
             else{
                 console.log(res)
@@ -52,7 +51,6 @@ const InitiativeDetails = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
             }
             else{
                 console.log(res)
@@ -75,7 +73,6 @@ const InitiativeDetails = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
             }
             else{
                 console.log(res)
@@ -101,11 +98,7 @@ const InitiativeDetails = () =>{
                             {initativeDetail.closingDate ? 
                                 <Card.Text>Closing Date: {formatDate(initativeDetail.closingDate)}</Card.Text>
                             : null}
-                            <Stack direction="horizontal" gap={2} className="justify-content-center">
-                                {initativeDetail.tags && initativeDetail.tags.map((tag, k) => (
-                                    <Badge bg="success">{tag}</Badge>
-                                ))}
-                            </Stack>
+                            <Badge bg="success">{initativeDetail.tags.toString()}</Badge>
                             <div className="d-grid mt-4">
                                 <Button variant="danger" onClick={()=>{
                                     endInitiative()

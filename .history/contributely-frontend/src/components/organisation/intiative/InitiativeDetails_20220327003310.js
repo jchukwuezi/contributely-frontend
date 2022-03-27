@@ -2,7 +2,8 @@ import {React, useEffect, useState} from "react"
 import { Container, Row, Col, Button, Card, Badge, Stack} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import formatDate from "../../../data/formatdate"
-
+import ReactTagInput from "@pathofdev/react-tag-input"
+import "@pathofdev/react-tag-input/build/index.css"
 
 const InitiativeDetails = () =>{
     const {initiativeId} = useParams();
