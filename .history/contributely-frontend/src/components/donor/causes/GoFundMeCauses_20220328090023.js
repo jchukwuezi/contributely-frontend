@@ -104,7 +104,7 @@ const GoFundMeCauses = () =>{
                                     handleShow()
                                 }}>View</Button>
                                 <Button onClick={()=>{
-                                    addToCollection(gfData.title, gfData.url, gfData.categories, gfData.goalAmount)
+                                    addToCollection(gfData.title, gfData.url, gfData.categories, gfData.goal)
                                 }}>Add to Collection</Button>
                             </div>
                             <Card.Footer>

@@ -41,34 +41,6 @@ const CausesByCountry = () =>{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const addToCollection = (title, url, impact, themes, goal) =>{
-        fetch("http://localhost:4000/api/onlinecauses/collection/add/gg-country",{
-            credentials: 'include',
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                title: title,
-                url: url,
-                impact: impact,
-                goal: goal,
-                themes: themes
-            }),
-        })
-        .then((res)=> {
-            if(!res.ok){
-                alert(res.text())
-            }
-            else{
-                console.log(res)
-                const getData = async() =>{
-                    //const data = await res.json()
-                    alert(await res.text())
-                }
-                getData()
-            }
-        })
-    }
-
 
     return(
         <Container>
@@ -90,9 +62,7 @@ const CausesByCountry = () =>{
                                     setThemes(causeData.themes.toString())
                                     handleShow()
                                 }}>View</Button>
-                                <Button onClick={()=>{
-                                    addToCollection(causeData.title, causeData.url, causeData.impact, causeData.themes.toString(), causeData.goal)
-                                }}>Add to Collection</Button>
+                                <Button>Add to Collection</Button>
                             </div>
                         </Card.Body>
                     </Card>

@@ -40,33 +40,6 @@ const GoFundMeCauses = () =>{
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const addToCollection = (title, url, categories, goal) =>{
-        fetch("http://localhost:4000/api/onlinecauses/collection/add/gfm",{
-            credentials: 'include',
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                title: title,
-                url: url,
-                categories: categories,
-                goal: goal
-            }),
-        })
-        .then((res)=> {
-            if(!res.ok){
-                alert(res.text())
-            }
-            else{
-                console.log(res)
-                const getData = async() =>{
-                    //const data = await res.json()
-                    alert(await res.text())
-                }
-                getData()
-            }
-        })
-    }
-
     if (gfData.length === 0){
         return(
             <Container>
@@ -103,9 +76,7 @@ const GoFundMeCauses = () =>{
                                     setCategories(gfData.categories)
                                     handleShow()
                                 }}>View</Button>
-                                <Button onClick={()=>{
-                                    addToCollection(gfData.title, gfData.url, gfData.categories, gfData.goalAmount)
-                                }}>Add to Collection</Button>
+                                <Button>Add to Collection</Button>
                             </div>
                             <Card.Footer>
                                 <small className="text-muted">Date Created: {gfData.dateCreated}</small>

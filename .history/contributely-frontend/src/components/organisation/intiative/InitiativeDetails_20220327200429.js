@@ -107,7 +107,7 @@ const InitiativeDetails = () =>{
                                 ))}
                             </Stack>
                             <div className="d-grid mt-4">
-                            {initativeDetail.active === true ? (
+                            {initativeDetail.active === false ? (
                                 <Button variant="danger" onClick={()=>{
                                     endInitiative()
                                     window.location.reload(false)

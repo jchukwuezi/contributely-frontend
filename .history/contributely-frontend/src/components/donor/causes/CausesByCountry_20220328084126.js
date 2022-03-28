@@ -91,7 +91,7 @@ const CausesByCountry = () =>{
                                     handleShow()
                                 }}>View</Button>
                                 <Button onClick={()=>{
-                                    addToCollection(causeData.title, causeData.url, causeData.impact, causeData.themes.toString(), causeData.goal)
+                                    addToCollection(causeData.title, causeData.url, causeData.impact, causeData.themes, causeData.goal)
                                 }}>Add to Collection</Button>
                             </div>
                         </Card.Body>
