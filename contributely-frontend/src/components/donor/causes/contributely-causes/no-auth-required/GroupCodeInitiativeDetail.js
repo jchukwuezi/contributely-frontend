@@ -3,6 +3,8 @@ import {React, useEffect, useState} from "react"
 import { Container, Row, Col, Button} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import MakeDonation from "../MakeDonation"
+import MakeDonationNoAuth from "./MakeDonationNoAuth"
+import formatDate from "../../../../../data/formatdate";
 
 const GroupCodeInitiativeDetail = () =>{
     const {groupCode, initiativeId} = useParams();
@@ -44,12 +46,12 @@ const GroupCodeInitiativeDetail = () =>{
                 <h1 className="mt-5 p-3 text-center">{initiativeDetail.title}</h1>
                 <p className="mt-2 p-3 text-center rounded">{initiativeDetail.description}</p> 
                 <p>Status: {initiativeDetail.status}</p>
-                <p>Date Created: {initiativeDetail.creationDate}</p>
+                <p>Date Created: {formatDate(initiativeDetail.creationDate)}</p>
             </Col>
         </Row>
 
         <Row className="mt-2">
-            <MakeDonation groupId={groupCode} initiativeId={initiativeId}/>
+            <MakeDonationNoAuth groupCode={groupCode} initiativeId={initiativeId}/>
         </Row>
         </Container>
     )

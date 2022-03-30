@@ -2,7 +2,7 @@
 import {React, useState, useEffect} from "react"
 import { Container, Row, Col, Button, Card } from "react-bootstrap"
 import { useNavigate, useParams, Link, useLocation} from "react-router-dom"
-
+import formatDate from "../../../../data/formatdate"
 
 const GroupInitiatives = () => {
     const navigate = useNavigate()
@@ -73,7 +73,7 @@ const GroupInitiatives = () => {
                             <Card.Title>{groupData.title}</Card.Title>
                             <Card.Text>{groupData.description}</Card.Text>
                             <Card.Text>€{groupData.goalAmount} </Card.Text>
-                            <Card.Text>{groupData.creationDate} </Card.Text>
+                            <Card.Text>{formatDate(groupData.creationDate)} </Card.Text>
                             <Link to={`/donor/${groupId}/initiatives/${groupData._id}`}>
                                 <Button variant="primary">View Initiative</Button>
                             </Link>

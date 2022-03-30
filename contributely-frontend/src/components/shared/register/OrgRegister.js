@@ -16,7 +16,7 @@ export const OrgRegister = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const {account} = await fetch("http://localhost:4000/api/organisations/register", {
+        fetch("http://localhost:4000/api/organisations/register", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -24,7 +24,7 @@ export const OrgRegister = () => {
                 email: registerOrgEmail,
                 description: registerOrgDescription,
                 password: registerOrgPassword,
-                tags: setRegisterOrgTags
+                tags: registerOrgTags
             })
         })
         .catch((err) => {
@@ -37,8 +37,6 @@ export const OrgRegister = () => {
             else{
                 alert('Registration successful')
                 console.log(`New user ${registerOrgName} added`)
-                console.log('Printing out stripe express details')
-                console.log(account)
                 navigate("/org/login")
             }
         })

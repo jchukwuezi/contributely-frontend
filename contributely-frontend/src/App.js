@@ -45,13 +45,13 @@ function App() {
         <Route path="/org/initiatives/:initiativeId" element={<InitiativeDetails/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
-        <Route path="contributely/:groupCode/initiatives" element={<GroupCodeInitiatives/>}/>
+        <Route path="/contributely/:groupCode/initiatives" element={<GroupCodeInitiatives/>}/>
         <Route path="/donor/:groupId/initiatives/:initiativeId" element={
           <Elements stripe={stripePromise}>
             <GroupInitiativeDetail/>
           </Elements>      
         }/>
-        <Route path="contributely/:groupCode/initiatives/:initiativeId" element={
+        <Route path="/contributely/:groupCode/initiatives/:initiativeId" element={
           <Elements stripe={stripePromise}>
             <GroupCodeInitiativeDetail/>
           </Elements>      
