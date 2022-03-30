@@ -19,6 +19,8 @@ import InitiativeDetails from './components/organisation/intiative/InitiativeDet
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import DonationPdf from './components/donor/causes/contributely-causes/DonationPdf';
+import GroupCodeInitiativeDetail from './components/donor/causes/contributely-causes/no-auth-required/GroupCodeInitiativeDetail';
+import GroupCodeInitiatives from './components/donor/causes/contributely-causes/no-auth-required/GroupCodeInitiatives';
 import {PDFViewer} from '@react-pdf/renderer'
 
 
@@ -43,9 +45,15 @@ function App() {
         <Route path="/org/initiatives/:initiativeId" element={<InitiativeDetails/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
+        <Route path="contributely/:groupCode/initiatives" element={<GroupCodeInitiatives/>}/>
         <Route path="/donor/:groupId/initiatives/:initiativeId" element={
           <Elements stripe={stripePromise}>
             <GroupInitiativeDetail/>
+          </Elements>      
+        }/>
+        <Route path="contributely/:groupCode/initiatives/:initiativeId" element={
+          <Elements stripe={stripePromise}>
+            <GroupCodeInitiativeDetail/>
           </Elements>      
         }/>
         <Route path="/donation-pdf" element={<DonationPdf/>}/>

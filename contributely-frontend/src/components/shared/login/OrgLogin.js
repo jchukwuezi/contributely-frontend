@@ -40,7 +40,7 @@ export const OrgLogin = () => {
                         const data = await res.text()
                         console.log(data)
                         setOnboardUrl(data)
-                        alert("Login successful, redirecting to stripes onboarding")
+                        alert("Login successful but you still need to be onboarded with Stripe. Redirecting to stripes onboarding")
                     }
                     getUrl()
                 }
