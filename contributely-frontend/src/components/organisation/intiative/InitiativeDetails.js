@@ -97,10 +97,15 @@ const InitiativeDetails = () =>{
                             <Card.Title>{initativeDetail.title}</Card.Title>
                             <Card.Text>{initativeDetail.description}</Card.Text>
                             <Card.Text>Goal Amount € {initativeDetail.goalAmount}</Card.Text>
-                            <Card.Text>Opening Date: {formatDate(initativeDetail.creationDate)}</Card.Text>
+                            <Card.Text>Date Created: {formatDate(initativeDetail.creationDate)}</Card.Text>
                             {initativeDetail.closingDate ? 
                                 <Card.Text>Closing Date: {formatDate(initativeDetail.closingDate)}</Card.Text>
                             : null}
+                            {initativeDetail.closingBalance ? 
+                                <Card.Text>Closing Balance: €{initativeDetail.closingBalance}</Card.Text>
+                            : 
+                            <Card.Text>Amount Donated so far €{initativeDetail.donationHistory.reduce((n, {amount}) => n + amount, 0)}</Card.Text>
+                            }
                             <Stack direction="horizontal" gap={2} className="justify-content-center">
                                 {initativeDetail.tags && initativeDetail.tags.map((tag, k) => (
                                     <Badge bg="success">{tag}</Badge>
