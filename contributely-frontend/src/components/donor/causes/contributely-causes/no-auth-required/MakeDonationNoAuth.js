@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {Document, Page} from '@react-pdf/renderer'
 import { useNavigate } from "react-router-dom";
+import {Button, Form} from "react-bootstrap";
 
 export const MakeDonationNoAuth = (props) =>{
     const groupCode = props.groupCode;
@@ -61,22 +62,35 @@ export const MakeDonationNoAuth = (props) =>{
     }
 
     return(
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <label>Amount you to donate</label>
-            <input type="number" placeholder="€" onChange={e => setAmount(e.target.value)}/>
-            
-            <label>Enter card details</label>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mt-2">
+            <Form.Label>Amount</Form.Label>
+            <Form.Control  type="number" placeholder="€" onChange={e => setAmount(e.target.value)}/> 
+        </Form.Group>
+
+        <Form.Group className="mt-2">
+            <Form.Label>Who is this contribution on behalf of?</Form.Label>
+            <Form.Control placeholder="Enter their full name" onChange={e => setOnBehalfOf(e.target.value)}/> 
+        </Form.Group>
+
+        <Form.Group className="mt-2">
+            <Form.Label>Enter an email to receive a pdf of this donation</Form.Label>
+            <Form.Control placeholder="@example.com" onChange={e => setDonorEmail(e.target.value)}/> 
+        </Form.Group>
+
+        <Form.Group className="mt-2">
+            <Form.Label>Enter Card Details</Form.Label>
             <CardElement id="card-element" className="mt-3"/>
+        </Form.Group>
 
-            <label>Who is this donation on behalf of?</label>
-            <input onChange={e => setOnBehalfOf(e.target.value)} placeholder="Enter their name"/>
+        <div className="d-grid">
+            <Button className="mb-3 mt-5" type="submit">
+            Contribute
+            </Button>
+        </div>
 
-            <label>Please enter your email to get a pdf of this donation</label>
-            <input onChange={e => setDonorEmail(e.target.value)}/>
-
-            <button className="mt-4"> Pay </button>
-        </form>
-    )
+      </Form>
+    ) 
 }
 
 export default MakeDonationNoAuth;

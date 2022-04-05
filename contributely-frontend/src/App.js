@@ -22,7 +22,8 @@ import DonationPdf from './components/donor/causes/contributely-causes/DonationP
 import GroupCodeInitiativeDetail from './components/donor/causes/contributely-causes/no-auth-required/GroupCodeInitiativeDetail';
 import GroupCodeInitiatives from './components/donor/causes/contributely-causes/no-auth-required/GroupCodeInitiatives';
 import {PDFViewer} from '@react-pdf/renderer'
-
+import OrgDashboard from './components/organisation/dashboard/OrgDashboard';
+import DonorDashboard from './components/donor/dashboard/DonorDashboard'
 
 const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
@@ -38,10 +39,12 @@ function App() {
         <Route path="/donor/login" element={<DonorLogin/>}/>
         <Route path="/donor/homepage" element={<DonorHomepage/>}/>
         <Route path="/donor/account" element={<AccountTab/>}/>
+        <Route path="/donor/dashboard" element={<DonorDashboard/>}/>
         <Route path="/org/initiative/add" element={<AddInitiative/>}/>
         <Route path="/org/stripe/onboard/success" element={<SuccessOnBoard/>}/>
         <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>
         <Route path="/org/initiatives" element={<AllInitiatives/>}/>
+        <Route path="/org/dashboard" element={<OrgDashboard/>}/>
         <Route path="/org/initiatives/:initiativeId" element={<InitiativeDetails/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>

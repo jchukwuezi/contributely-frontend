@@ -60,7 +60,7 @@ const OrgNavbar = () => {
                     <Nav.Link>Account</Nav.Link>
                     */}
                     <Nav.Link onClick={()=>navigate("/org/initiative/add")}>Add</Nav.Link>
-                    <Nav.Link>Dashboard</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/org/dashboard")}>Dashboard</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">

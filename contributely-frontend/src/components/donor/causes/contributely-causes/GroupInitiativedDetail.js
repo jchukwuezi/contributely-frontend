@@ -4,6 +4,7 @@ import { Container, Row, Col, Button} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import MakeDonation from "./MakeDonation"
 import formatDate from "../../../../data/formatdate"
+import DonorNavbar from "../../../shared/navbar/DonorNavbar"
 
 const GroupInitiativeDetail = () => {
     const {groupId, initiativeId} = useParams();
@@ -39,20 +40,19 @@ const GroupInitiativeDetail = () => {
     }
 
     return(
+        <div>
+        <DonorNavbar />
         <Container>
-        <Row className="mt-2">
-            <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                <h1 className="mt-5 p-3 text-center">{initiativeDetail.title}</h1>
-                <p className="mt-2 p-3 text-center rounded">{initiativeDetail.description}</p> 
-                <p>Status: {initiativeDetail.status}</p>
-                <p>Date Created: {formatDate(initiativeDetail.creationDate)}</p>
-            </Col>
-        </Row>
-
-        <Row className="mt-2">
-            <MakeDonation groupId={groupId} initiativeId={initiativeId}/>
-        </Row>
+            <Row className="mt-2">
+                <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
+                    <h1 className="mt-5 p-3 text-center">{initiativeDetail.title}</h1>
+                    <p className="mt-2 p-3 text-center rounded">{initiativeDetail.description}</p> 
+                    <p>Date Created: {formatDate(initiativeDetail.creationDate)}</p>
+                    <MakeDonation groupId={groupId} initiativeId={initiativeId}/>
+                </Col>
+            </Row>
         </Container>
+        </div>
     )
 }
 

@@ -55,8 +55,9 @@ const Groups = () => {
 
     return(
         <Container>
-            <h2>Organisations on Contributely that match your interests</h2>
-            <Row>
+            <h2 className="mt-5 p-3 text-center">Organisations on Contributely</h2>
+            <p className="text-center">Below are the groups that have already set up on Contributely. Click into their profile to make a donation today.</p>
+            <Row className="justify-content-center">
                 {groups.map((groups, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>

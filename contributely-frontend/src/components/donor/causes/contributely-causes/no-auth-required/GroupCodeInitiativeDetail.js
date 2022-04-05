@@ -42,16 +42,12 @@ const GroupCodeInitiativeDetail = () =>{
     return(
         <Container>
         <Row className="mt-2">
-            <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
+            <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg justify-content-center">
                 <h1 className="mt-5 p-3 text-center">{initiativeDetail.title}</h1>
                 <p className="mt-2 p-3 text-center rounded">{initiativeDetail.description}</p> 
-                <p>Status: {initiativeDetail.status}</p>
                 <p>Date Created: {formatDate(initiativeDetail.creationDate)}</p>
+                <MakeDonationNoAuth groupCode={groupCode} initiativeId={initiativeId}/>
             </Col>
-        </Row>
-
-        <Row className="mt-2">
-            <MakeDonationNoAuth groupCode={groupCode} initiativeId={initiativeId}/>
         </Row>
         </Container>
     )

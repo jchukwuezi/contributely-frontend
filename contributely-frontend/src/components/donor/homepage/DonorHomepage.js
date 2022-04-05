@@ -6,6 +6,7 @@ import {loggedInDonor, checkAuthDonor} from "../../../auth/auth"
 import JustGivingCharities from "../charities/JustGivingCharities";
 import CausesByCountry from "../causes/CausesByCountry";
 import GoFundMeCauses from "../causes/GoFundMeCauses";
+import Groups from "../causes/contributely-causes/Groups";
 import { Row } from "react-bootstrap";
 
 
@@ -44,6 +45,7 @@ export const DonorHomepage = () => {
         <div>
             <DonorNavbar />
             <Row className="mt-5">
+                <Groups/>
                 <CausesByInterest />
                 <CausesByCountry />
                 <GoFundMeCauses />

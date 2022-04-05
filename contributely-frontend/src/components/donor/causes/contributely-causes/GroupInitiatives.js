@@ -3,6 +3,7 @@ import {React, useState, useEffect} from "react"
 import { Container, Row, Col, Button, Card } from "react-bootstrap"
 import { useNavigate, useParams, Link, useLocation} from "react-router-dom"
 import formatDate from "../../../../data/formatdate"
+import DonorNavbar from "../../../shared/navbar/DonorNavbar"
 
 const GroupInitiatives = () => {
     const navigate = useNavigate()
@@ -63,9 +64,11 @@ const GroupInitiatives = () => {
     console.log(groupData)
 
     return(
+        <div>
+        <DonorNavbar />
         <Container>
-            <h2>Initiatives created by this Organisation</h2>
-            <Row>
+            <h2 className="mt-3 p-3 text-center">Initiatives created by this Organisation</h2>
+            <Row className="mt-2 justify-content-center">
                 {groupData.map((groupData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>
@@ -83,6 +86,7 @@ const GroupInitiatives = () => {
             ))}
             </Row>
         </Container>
+        </div>
     )
 }
 

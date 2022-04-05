@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {Document, Page} from '@react-pdf/renderer'
 import { useNavigate } from "react-router-dom";
+import {Button, Form} from "react-bootstrap";
 
 //destructuring props from parent component
 export const MakeDonation = (props) =>{
@@ -14,7 +15,7 @@ export const MakeDonation = (props) =>{
     const [onBehalfOf, setOnBehalfOf] = useState("")
     const [donorEmail, setDonorEmail] = useState("")
     const [amount, setAmount] = useState("")
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(amount, donorEmail, onBehalfOf)
@@ -63,21 +64,33 @@ export const MakeDonation = (props) =>{
     }
 
     return(
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <label>Amount you to donate</label>
-            <input type="number" placeholder="€" onChange={e => setAmount(e.target.value)}/>
-            
-            <label>Enter card details</label>
-            <CardElement id="card-element" className="mt-3"/>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mt-2">
+                <Form.Label>Amount</Form.Label>
+                <Form.Control  type="number" placeholder="€" onChange={e => setAmount(e.target.value)}/> 
+            </Form.Group>
 
-            <label>Who is this donation on behalf of?</label>
-            <input onChange={e => setOnBehalfOf(e.target.value)} placeholder="Enter their name"/>
+            <Form.Group className="mt-2">
+                <Form.Label>Who is this contribution on behalf of?</Form.Label>
+                <Form.Control placeholder="Enter their full name" onChange={e => setOnBehalfOf(e.target.value)}/> 
+            </Form.Group>
 
-            <label>Please enter your email to get a pdf of this donation</label>
-            <input onChange={e => setDonorEmail(e.target.value)}/>
+            <Form.Group className="mt-2">
+                <Form.Label>Enter an email to receive a pdf of this donation</Form.Label>
+                <Form.Control placeholder="@example.com" onChange={e => setDonorEmail(e.target.value)}/> 
+            </Form.Group>
 
-            <button className="mt-4"> Pay </button>
-        </form>
+            <Form.Group className="mt-2">
+                <Form.Label>Enter Card Details</Form.Label>
+                <CardElement id="card-element" className="mt-3"/>
+            </Form.Group>
+
+            <div className="d-grid">
+                <Button className="mb-3 mt-5" type="submit">
+                Contribute
+                </Button>
+            </div>
+      </Form>
     )
 }
 
