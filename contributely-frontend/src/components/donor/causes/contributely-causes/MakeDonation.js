@@ -24,6 +24,7 @@ export const MakeDonation = (props) =>{
         }
         try{
             const {clientSecret, paymentInfo} = await fetch(`http://localhost:4000/api/groups/${groupId}/${initiativeId}/donate`, {
+                credentials: 'include',
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
