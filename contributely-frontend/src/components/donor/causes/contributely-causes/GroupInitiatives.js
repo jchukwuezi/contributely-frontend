@@ -4,20 +4,33 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap"
 import { useNavigate, useParams, Link, useLocation} from "react-router-dom"
 import formatDate from "../../../../data/formatdate"
 import DonorNavbar from "../../../shared/navbar/DonorNavbar"
+import {Elements} from '@stripe/react-stripe-js'
+import CreateSubModal from "./CreateSubModal"
+import stripePromise from "../../../../data/stripe"
+
 
 const GroupInitiatives = () => {
     const navigate = useNavigate()
     const {groupId} = useParams();
     const [groupData, setGroupData] = useState([])
+    const [subsData, setSubsData] = useState([])
     const [state, setState] = useState({})
     //getting the group id in the parameter to make the call to the api on server side
     //const {groupId} = useLocation()
     //const location = useLocation()
     //const id = location.state.id
 
+    //handling the state of the modal
+    const [show, setShow] = useState(false)
+    const handleShow = () => setShow(true)
+    const handleClose = () => setShow(false)
+
+    //handling the join mailing list button click
+
 
     useEffect(()=>{
         groupDataAPI()
+        subscriptionAPI()
         return ()=>{
             setState({})
         }
@@ -40,6 +53,29 @@ const GroupInitiatives = () => {
                 const getData = async() =>{
                     const data = await res.json()
                     setGroupData(data)
+                }
+                getData()
+            }
+        })
+    }
+
+    const subscriptionAPI = () =>{
+        fetch("http://localhost:4000/api/subscriptions/donor/get", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            if(!res.ok){
+                alert('Error returning subscriptions')
+            }
+
+            else{
+                console.log(res)
+                const getData = async() =>{
+                    const data = await res.json()
+                    setSubsData(data)
                 }
                 getData()
             }
@@ -85,6 +121,30 @@ const GroupInitiatives = () => {
                 </Col>
             ))}
             </Row>
+            
+            <h2 className="mt-3 p-3 text-center">Subscribe To a Plan to contribute to this organisation</h2>
+            <Row className="mt-2 justify-content-center">
+            {subsData.map((subsData, k)=> (
+                <Col key={k} sm={4}>
+                    <Card className="text-center mt-2 mb-3">
+                        <Card.Body> 
+                            <Card.Title>{subsData.nickname}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Recurring: {subsData.recurring.interval}ly</Card.Subtitle>
+                            <Card.Title>€{subsData.unit_amount/100}</Card.Title>
+                            <div className="d-grid gap-2">
+                                <Button variant="success" onClick={()=>{
+                                    handleShow()
+
+                                }}>Select</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ))}
+            </Row>
+            <Elements stripe={stripePromise}>
+                <CreateSubModal />
+             </Elements>                   
         </Container>
         </div>
     )

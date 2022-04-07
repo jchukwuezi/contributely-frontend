@@ -1,11 +1,22 @@
 import React, {useState, useEffect} from "react";
 import { Button, Card, Col, Container, Row, Badge, ProgressBar } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import SubscriptionsModal from "./SubscriptionsModal";
 
 const AvailableSubscriptions = () =>{
     const [state, setState] = useState({})
     const [subsData, setSubsData] = useState([])
+    const [nickname, setNickname] = useState("")
+    const [interval, setInterval] = useState("")
+    const [unitAmount, setUnitAmount] = useState("")
+    const [productId, setProductId] = useState("")
+    const [productDesc, setProductDesc] = useState("")
     const navigate = useNavigate()
+
+
+    const [show, setShow] = useState(false)
+    const handleShow = () => setShow(true)
+    const handleClose = () => setShow(false)
 
     useEffect(()=>{
         subscriptionAPI()
@@ -37,6 +48,25 @@ const AvailableSubscriptions = () =>{
         })
     }
 
+    const productDescAPI = (id) =>{
+        fetch(`http://localhost:4000/api/subscriptions/org/desc/${id}`, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res) => {
+            console.log(res)
+            const getData = async() => {
+                const data = await res.json()
+                setProductDesc(data.desc)
+            }
+            getData()
+        })
+    }
+
+
+
 
     if(subsData.length === 0){
         return(
@@ -53,23 +83,31 @@ const AvailableSubscriptions = () =>{
 
     return(
         <Container>
-            <Row className="justify-content-center">
             <h2 className="mt-3 p-3 text-center">Subscription plans available to contributors of this Organisation</h2>
+            <Row className="justify-content-center g-3">
             {subsData.map((subsData, k)=> (
-                <Col key={k} xs={12} md={4} lg={3}>
-                    <Card>
+                <Col key={k} sm={4}>
+                    <Card className="text-center mt-2 mb-3">
                         <Card.Body> 
                             <Card.Title>{subsData.nickname}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">Recurring: {subsData.recurring.interval}ly</Card.Subtitle>
-                            <Card.Text>€{subsData.unit_amount/100}</Card.Text>
+                            <Card.Title>€{subsData.unit_amount/100}</Card.Title>
                             <div className="d-grid gap-2">
-                                <Button variant="outline-success">View</Button>
+                                <Button variant="success" onClick={()=>{
+                                    setNickname(subsData.nickname)
+                                    setInterval(subsData.recurring.interval)
+                                    setUnitAmount(subsData.unit_amount/100)
+                                    setProductId(subsData.product)
+                                    productDescAPI(subsData.product)
+                                    handleShow()
+                                }}>View</Button>
                             </div>
                         </Card.Body>
                     </Card>
                 </Col>
             ))}
             </Row>
+            <SubscriptionsModal show={show} onClose={handleClose} nickname={nickname} interval={interval} unitAmount={unitAmount} productId={productId} productDesc={productDesc} />
         </Container>
     )
 }

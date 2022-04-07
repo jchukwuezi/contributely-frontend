@@ -24,6 +24,7 @@ import GroupCodeInitiatives from './components/donor/causes/contributely-causes/
 import {PDFViewer} from '@react-pdf/renderer'
 import OrgDashboard from './components/organisation/dashboard/OrgDashboard';
 import DonorDashboard from './components/donor/dashboard/DonorDashboard'
+import CreateSubModal from './components/donor/causes/contributely-causes/CreateSubModal';
 
 const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
