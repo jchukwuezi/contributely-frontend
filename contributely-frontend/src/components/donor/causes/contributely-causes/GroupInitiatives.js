@@ -14,6 +14,11 @@ const GroupInitiatives = () => {
     const {groupId} = useParams();
     const [groupData, setGroupData] = useState([])
     const [subsData, setSubsData] = useState([])
+    const [priceId, setPriceId] = useState("")
+    const [nickname, setNickname] = useState("")
+    const [productDesc, setProductDesc] = useState("")
+    const [unitAmount, setUnitAmount] = useState("")
+    const [interval, setInterval] = useState("")
     const [state, setState] = useState({})
     //getting the group id in the parameter to make the call to the api on server side
     //const {groupId} = useLocation()
@@ -82,6 +87,23 @@ const GroupInitiatives = () => {
         })
     }
 
+    const productDescAPI = (id) =>{
+        fetch(`http://localhost:4000/api/subscriptions/org/desc/${id}`, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res) => {
+            console.log(res)
+            const getData = async() => {
+                const data = await res.json()
+                setProductDesc(data.desc)
+            }
+            getData()
+        })
+    }
+
     if (groupData.length === 0){
         return(
             <Container>
@@ -132,9 +154,13 @@ const GroupInitiatives = () => {
                             <Card.Subtitle className="mb-2 text-muted">Recurring: {subsData.recurring.interval}ly</Card.Subtitle>
                             <Card.Title>€{subsData.unit_amount/100}</Card.Title>
                             <div className="d-grid gap-2">
-                                <Button variant="success" onClick={()=>{
+                                <Button variant="primary" onClick={()=>{
                                     handleShow()
-
+                                    setPriceId(subsData.id)
+                                    setNickname(subsData.nickname)
+                                    setUnitAmount(subsData.unit_amount)
+                                    setInterval(subsData.recurring.interval)
+                                    productDescAPI(subsData.product)
                                 }}>Select</Button>
                             </div>
                         </Card.Body>
@@ -143,7 +169,7 @@ const GroupInitiatives = () => {
             ))}
             </Row>
             <Elements stripe={stripePromise}>
-                <CreateSubModal />
+                <CreateSubModal show={show} onClose={handleClose} priceId={priceId} nickname={nickname} productDesc={productDesc} groupId={groupId} unitAmount={unitAmount} interval={interval}/>
              </Elements>                   
         </Container>
         </div>
