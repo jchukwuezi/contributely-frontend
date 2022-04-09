@@ -58,8 +58,8 @@ const GroupCodeInitiatives = () =>{
 
     return(
         <Container>
-            <h2>Initiatives created by this Organisation</h2>
-            <Row>
+            <h2 className="p-3 text-center">Initiatives created by this Organisation</h2>
+            <Row className="justify-content-center mt-3 g-2">
                 {groupData.map((groupData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>
                     <Card>
