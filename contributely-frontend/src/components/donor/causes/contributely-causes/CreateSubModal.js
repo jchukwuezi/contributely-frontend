@@ -21,7 +21,8 @@ const CreateSubModal = (props) =>{
                 card: elements.getElement(CardElement)
             })
 
-            const {client_secret, status} = await fetch(`http://localhost:4000/api/subscriptions/donor/subscribe/${groupId}`,{
+            /*
+            const {client_secret, subStatus} = await fetch(`http://localhost:4000/api/subscriptions/donor/subscribe/${groupId}`,{
                 credentials: 'include',
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
@@ -29,11 +30,12 @@ const CreateSubModal = (props) =>{
                     priceId: priceId,
                     payment_method: result.paymentMethod.id,
                     unit_amount: unitAmount,
+                    nickname: nickname,
                     interval: interval
                 })
             })
 
-            if (status === 'requires_action'){
+            if (subStatus === 'requires_action'){
                 await stripe.confirmCardPayment(client_secret)
                 .catch((err)=>{
                     alert('There was an error with card payment')
@@ -41,7 +43,42 @@ const CreateSubModal = (props) =>{
                 })
             }
             alert('Subscription set up successfully')
+            */
 
+            fetch(`http://localhost:4000/api/subscriptions/donor/subscribe/${groupId}`, {
+                credentials: 'include',
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    priceId: priceId,
+                    payment_method: result.paymentMethod.id,
+                    unit_amount: unitAmount,
+                    nickname: nickname,
+                    interval: interval
+                })
+            })
+            .then((res)=>{
+                if(res.status === 409){
+                    alert(`You already have a ${nickname} subscription of set up with this organisation, click subscriptions in the navigation bar to see this information`)
+                }
+                else{
+                    const confirmPayment = (async ()=>{
+                        if (res.subStatus === 'requires_action'){
+                            await stripe.confirmCardPayment(res.client_secret)
+                            .catch((err)=>{
+                                alert('There was an error with card payment')
+                                console.log(err)
+                            })
+                        }
+                        alert('Subscription set up successfully')
+                    })
+
+                    confirmPayment()
+                }
+            })
+            .catch((err)=>{
+                alert(err)
+            })
         }
         catch(err){
             console.log(err)

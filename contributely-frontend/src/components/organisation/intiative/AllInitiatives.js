@@ -81,6 +81,7 @@ const AllInitiatives = () => {
                         ):(
                             <Badge bg="success" className="mb-3">Status: Active</Badge>
                          )}
+                         <Card.Subtitle className="mb-2 text-muted">€{initiativeData.goalAmount} Goal</Card.Subtitle>
                          <Card.Text>Progress</Card.Text>
                         <ProgressBar animated now={initiativeData.donationHistory.reduce((n, {amount}) => n + amount, 0)/initiativeData.goalAmount*100} className="mb-3" variant="success"/>
                         <Link to={`/org/initiatives/${initiativeData._id}`}>

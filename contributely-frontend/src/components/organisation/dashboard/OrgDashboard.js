@@ -2,6 +2,11 @@ import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Button, CardDeck} from "react-bootstrap";
 import OrgNavbar from "../../shared/navbar/OrgNavbar";
+import BootstrapTable from 'react-bootstrap-table-next'
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
+import formatDate from "../../../data/formatdate";
+
+
 
 const OrgDashboard = () =>{
     const [state, setState] = useState({})
@@ -19,10 +24,19 @@ const OrgDashboard = () =>{
         getTotalContributions()
         getTotalInitiativeNo()
         getPending()
+        getSubscriberList()
         return () => {
             setState({})
         }
     }, [])
+
+    const formatAmount = (amount) =>{
+        return '€' + amount;
+    }
+
+    const formatInterval = (interval) =>{
+        return `${interval}ly`
+    }
 
     const getBalance = () =>{
         fetch("http://localhost:4000/api/organisations/available-balance", {
@@ -80,7 +94,6 @@ const OrgDashboard = () =>{
         })
     }
     
-
     const getTotalInitiativeNo = () =>{
         fetch("http://localhost:4000/api/organisations/initiative-count", {
             credentials: 'include',
@@ -102,12 +115,54 @@ const OrgDashboard = () =>{
     }
 
     const getSubscriberList = () =>{
-
+        fetch("http://localhost:4000/api/subscriptions/org/all", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setSubscriberList(data.subs)
+            }
+            getData()
+        })
     }
 
     const getCategories = () =>{
 
     }
+
+    const columns = [
+        {
+            dataField: "_id",
+            text: "Subscription ID"
+        },
+        
+        {
+            dataField: "donor.name",
+            text: "Contributor"
+        },
+
+        {
+            dataField: "amount",
+            formatter: amount => formatAmount(amount),
+            text: "Subscription Amount"
+        },
+
+        {
+            dataField: "interval",
+            formatter: interval => formatInterval(interval),
+            text: "Subscription Interval"
+        },
+
+        {
+            dataField: "startDate",
+            formatter: startDate => formatDate(startDate),
+            text: "Date created"
+        }
+    ]
 
 
 
@@ -141,6 +196,19 @@ const OrgDashboard = () =>{
                         <Card.Title>{totalInitiativeNo}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Total number of initiatives created </Card.Subtitle>
                     </Card>
+                </Row>
+
+                <Row className="justify-content-center mt-3">
+                <h2 className="p-3 text-center">Periodic Contributors</h2>
+                <p className="p-3 text-center">Below are contributors that have set up a regular contribution to your organisation</p>
+                <BootstrapTable
+                    keyField="_id"
+                    data={subscriberList}
+                    columns={columns}
+                    striped
+                    hover
+                    condensed
+                />
                 </Row>
             </Container>
         </div>
