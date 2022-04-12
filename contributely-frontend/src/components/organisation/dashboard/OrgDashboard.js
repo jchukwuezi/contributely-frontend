@@ -5,6 +5,9 @@ import OrgNavbar from "../../shared/navbar/OrgNavbar";
 import BootstrapTable from 'react-bootstrap-table-next'
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
 import formatDate from "../../../data/formatdate";
+import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
+import {Pie} from 'react-chartjs-2'
+import {getRandomColorPie} from '../../../data/generate-color'
 
 
 
@@ -16,7 +19,8 @@ const OrgDashboard = () =>{
     const [totalInitiativeNo, setTotalInitiativeNo] = useState("")
     const [initiativeData, setInitiativeData] = useState([])
     const [subscriberList, setSubscriberList] = useState([])
-    const [categories, setCategories] = useState([])
+    const [initiativeCatKeys, setInitiativeCatKeys] = useState([])
+    const [initiativeCatValues, setInitiativeCatValues] = useState([])
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -25,6 +29,7 @@ const OrgDashboard = () =>{
         getTotalInitiativeNo()
         getPending()
         getSubscriberList()
+        getInitiativeCategories()
         return () => {
             setState({})
         }
@@ -130,8 +135,21 @@ const OrgDashboard = () =>{
         })
     }
 
-    const getCategories = () =>{
-
+    const getInitiativeCategories = () =>{
+        fetch("http://localhost:4000/api/organisations/initiative-categories", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setInitiativeCatKeys(data.categoryKeys)
+                setInitiativeCatValues(data.categoryValues)
+            }
+            getData()
+        })
     }
 
     const columns = [
@@ -164,8 +182,22 @@ const OrgDashboard = () =>{
         }
     ]
 
+ 
+    ChartJS.register(ArcElement, Tooltip, Legend)
 
-
+    
+    const initiativeCatData = {
+        labels: initiativeCatKeys,
+        datasets: [
+            {
+                label: 'Categories',
+                data: initiativeCatValues,
+                backgroundColor: getRandomColorPie(initiativeCatValues),
+                borderWidth: 1
+            }
+        ]
+    }
+    
     return(
         <div>
             <OrgNavbar />
@@ -209,6 +241,13 @@ const OrgDashboard = () =>{
                     hover
                     condensed
                 />
+                </Row>
+
+                <Row className="justify-content-center mt-3">
+                <h2 className="p-3 text-center">Categories of the Initiatives You have created</h2>
+                <div style={{height:'500px',width:'500px'}}>
+                    <Pie data={initiativeCatData} />
+                </div>
                 </Row>
             </Container>
         </div>

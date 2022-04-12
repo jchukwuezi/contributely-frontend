@@ -5,7 +5,9 @@ import DonorNavbar from "../../shared/navbar/DonorNavbar"
 import BootstrapTable from 'react-bootstrap-table-next'
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css'
 import formatDate from "../../../data/formatdate";
-
+import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
+import {Doughnut} from "react-chartjs-2";
+import generateRandomColor from "../../../data/generate-color";
 
 const DonorDashboard = () =>{
     const [state, setState] = useState({})
@@ -14,7 +16,10 @@ const DonorDashboard = () =>{
     const [subscriptions, setSubscriptions] = useState([])
     const [subscriptionsNo, setSubscriptionsNo] = useState("")
     const [contributions, setContributions] = useState([])
-    const [categories, setCategories] = useState([])
+    const [categoryKeys, setCategoryKeys] = useState([])
+    const [categoryValues, setCategoryValues] = useState([])
+    const [subCatKeys, setSubCatKeys] = useState([])
+    const [subCatValues, setSubCatValues] = useState([])
     const navigate = useNavigate()
 
 
@@ -23,6 +28,8 @@ const DonorDashboard = () =>{
         getNoOfDonations()
         getSubscriptions()
         getSubscriptionsNo()
+        getCategories()
+        getSubCategories()
         return () => {
             setState({})
         }
@@ -117,6 +124,23 @@ const DonorDashboard = () =>{
         })
     }
 
+    const getCategories = () =>{
+        fetch("http://localhost:4000/api/donors/categories-donated", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setCategoryKeys(data.categoryKeys)
+                setCategoryValues(data.categoryValues)
+            }
+            getData()
+        })
+    }
+
     const formatAmount = (amount) =>{
         return '€' + amount;
     }
@@ -152,13 +176,51 @@ const DonorDashboard = () =>{
         }
     ]
     
-
     const getContributions = () => {
 
     }
 
-    const getCategories = () =>{
+    const getSubCategories = () =>{
+        fetch("http://localhost:4000/api/donors/subs-categories", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setSubCatKeys(data.categoryKeys)
+                setSubCatValues(data.categoryValues)
+            }
+            getData()
+        })
+    }
 
+    ChartJS.register(ArcElement, Tooltip, Legend)
+
+    const chartData = {
+        labels: categoryKeys,
+        datasets: [
+            {
+                label: 'Categories',
+                data: categoryValues,
+                backgroundColor: generateRandomColor(categoryValues),
+                borderWidth: 1
+            }
+        ]
+    }
+
+    const subData = {
+        labels: subCatKeys,
+        datasets: [
+            {
+                label: 'Categories',
+                data: subCatValues,
+                backgroundColor: generateRandomColor(subCatValues),
+                borderWidth: 1
+            }
+        ]
     }
 
     return(
@@ -195,6 +257,24 @@ const DonorDashboard = () =>{
                 hover
                 condensed
             />
+            </Row>
+
+            <Row className="justify-content-center mt-3">
+                <Col md="auto">
+                    <h2 className="p-3 text-center">Contribution Categories</h2>
+                    <p className="p-3 text-center">These are the categories that you have made contributions to</p>
+                    <div style={{height:'500px',width:'500px'}}>
+                        <Doughnut data={chartData}/>
+                    </div>
+                </Col>
+
+                <Col md="auto">
+                    <h2 className="p-3 text-center">Subscription Categories</h2>
+                    <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
+                    <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
+                        <Doughnut data={subData}/>
+                    </div>
+                </Col>
             </Row>
 
         </Container>
