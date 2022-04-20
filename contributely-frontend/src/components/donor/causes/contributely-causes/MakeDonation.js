@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import {Document, Page} from '@react-pdf/renderer'
 import { useNavigate } from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 
@@ -12,13 +11,11 @@ export const MakeDonation = (props) =>{
     const navigate = useNavigate()
     const elements = useElements();
     const stripe = useStripe();
-    const [onBehalfOf, setOnBehalfOf] = useState("")
-    const [donorEmail, setDonorEmail] = useState("")
     const [amount, setAmount] = useState("")
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(amount, donorEmail, onBehalfOf)
+        console.log(amount)
         if(!stripe || !elements){
             return
         }
@@ -31,13 +28,10 @@ export const MakeDonation = (props) =>{
                     paymentMethodType: 'card',
                     currency: 'eur',
                     amount: amount,
-                    email: donorEmail,
-                    onBehalfOf: onBehalfOf
                 })
             })
             .then(r => r.json())
             console.log(clientSecret)
-           // console.log(paymentInfo)
             //confirming payment on client side
             const {paymentIntent} = await stripe.confirmCardPayment(
                 clientSecret, {
@@ -50,18 +44,10 @@ export const MakeDonation = (props) =>{
             console.log("Payment intent details")
             console.log(paymentIntent)
             navigate('/donation-pdf', {state: paymentInfo})
-            //await createPdf(paymentInfo)
         }
         catch(err){
             console.log(err)
         }
-    }
-
-    const createPdf = (paymentInfo) =>{
-        console.log(paymentInfo)
-        const {initiativeName, groupName, inTheNameOf, amount, email} = paymentInfo
-        
-        
     }
 
     return(
@@ -69,16 +55,6 @@ export const MakeDonation = (props) =>{
             <Form.Group className="mt-2">
                 <Form.Label>Amount</Form.Label>
                 <Form.Control  type="number" placeholder="€" onChange={e => setAmount(e.target.value)}/> 
-            </Form.Group>
-
-            <Form.Group className="mt-2">
-                <Form.Label>Who is this contribution on behalf of?</Form.Label>
-                <Form.Control placeholder="Enter their full name" onChange={e => setOnBehalfOf(e.target.value)}/> 
-            </Form.Group>
-
-            <Form.Group className="mt-2">
-                <Form.Label>Enter an email to receive a pdf of this donation</Form.Label>
-                <Form.Control placeholder="@example.com" onChange={e => setDonorEmail(e.target.value)}/> 
             </Form.Group>
 
             <Form.Group className="mt-2">

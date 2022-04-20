@@ -34,7 +34,6 @@ export const DonationPdf = () =>{
             <Document>
                 <Page size="A4" style={styles.page}>
                     <Text>Donation to Group: {state.groupName}  </Text>
-                    <Text>In the name of: {state.inTheNameOf}</Text>
                     <Text style={styles.text}>{`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}</Text>
                     <Table data={[{
                         initiativeName: state.initiativeName,

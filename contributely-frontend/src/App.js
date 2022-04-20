@@ -13,6 +13,7 @@ import StripeRedirect from './components/organisation/stripe-onboard/StripeRedir
 import SuccessOnBoard from './components/organisation/stripe-onboard/SuccessOnBoard';
 import Groups from './components/donor/causes/contributely-causes/Groups';
 import GroupInitiativeDetail from './components/donor/causes/contributely-causes/GroupInitiativedDetail';
+import GiftInitiativeDetail from './components/donor/causes/contributely-causes/gift-donation/GiftInitiativeDetail';
 import GroupInitiatives from './components/donor/causes/contributely-causes/GroupInitiatives';
 import AllInitiatives from './components/organisation/intiative/AllInitiatives';
 import InitiativeDetails from './components/organisation/intiative/InitiativeDetails';
@@ -59,6 +60,11 @@ function App() {
         <Route path="/contributely/:groupCode/initiatives/:initiativeId" element={
           <Elements stripe={stripePromise}>
             <GroupCodeInitiativeDetail/>
+          </Elements>      
+        }/>
+        <Route path="/donor/:groupId/initiatives/:initiativeId/gift" element={
+          <Elements stripe={stripePromise}>
+            <GiftInitiativeDetail/>
           </Elements>      
         }/>
         <Route path="/donation-pdf" element={<DonationPdf/>}/>

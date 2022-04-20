@@ -136,7 +136,14 @@ const GroupInitiatives = () => {
                             <Card.Text>€{groupData.goalAmount} </Card.Text>
                             <Card.Text>{formatDate(groupData.creationDate)} </Card.Text>
                             <Link to={`/donor/${groupId}/initiatives/${groupData._id}`}>
-                                <Button variant="primary">View Initiative</Button>
+                                <div className="d-grid">
+                                    <Button variant="primary">View Initiative</Button>
+                                </div>
+                            </Link>
+                            <Link to={`${groupData._id}/gift`}>
+                                <div className="d-grid mt-2">
+                                    <Button> Gift a Contribution for this Initiative</Button>
+                                </div>    
                             </Link>
                         </Card.Body>
                     </Card>
