@@ -5,6 +5,7 @@ import GoFundMeModal from "./modals/GoFundMeModal";
 const GoFundMeCauses = () =>{
     const [gfData, setGfData] = useState([])
     const [amount, setAmount] = useState("")
+    const [interest, setInterest] = useState("")
     const [url, setUrl] = useState("")
     const [title, setTitle] = useState("")
     const [categories, setCategories] = useState("")
@@ -33,6 +34,7 @@ const GoFundMeCauses = () =>{
                 const getData = async() => {
                     const data = await res.json()
                     setGfData(data.causeInfo.slice(0,3))
+                    setInterest(data.category)
                 }
                 getData()
             }
@@ -87,7 +89,7 @@ const GoFundMeCauses = () =>{
 
     return(
         <Container>
-            <h2 className="mt-5 p-3 text-center">GoFundMe Causes Based on your Interests</h2>
+            <h2 className="mt-5 p-3 text-center">GoFundMe Causes Based on your Interest: {interest}</h2>
             <Row className="justify-content-center">
             {gfData.map((gfData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>

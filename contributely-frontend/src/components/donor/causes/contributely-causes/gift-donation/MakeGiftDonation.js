@@ -66,7 +66,7 @@ const MakeGiftDonation = (props) =>{
                 </Form.Group>
 
                 <Form.Group className="mt-2">
-                    <Form.Label>Name of the person you want to gift this donation to.</Form.Label>
+                    <Form.Label>Email of the person you want to gift this donation to.</Form.Label>
                     <Form.Control  type="email" placeholder="example@example.com" onChange={e => setEmail(e.target.value)}/> 
                 </Form.Group>
     
