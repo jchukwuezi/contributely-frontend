@@ -32,7 +32,7 @@ const GoFundMeCauses = () =>{
                 console.log(res)
                 const getData = async() => {
                     const data = await res.json()
-                    setGfData(data.slice(0,3))
+                    setGfData(data.causeInfo.slice(0,3))
                 }
                 getData()
             }
@@ -72,8 +72,10 @@ const GoFundMeCauses = () =>{
             <Container>
                 <Row className="mt-2">
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                        <h1 className="mt-5 p-3 text-center">No Causes found that matched your interests</h1>
-                        <p className="mt-2 p-3 text-center rounded">To find some suggested causes, please add some interests</p> 
+                        <h1 className="mt-5 p-3 text-center">No GoFundMe Causes found that matched your interests</h1>
+                        <p className="mt-2 p-3 text-center rounded">To find some suggested causes, add interests such as:
+                        Sports, Education, Environment, Health & Medical, Memorial, Emergency, Charity, Animal, Creative, Event, Faith, Family, Volunteer.
+                        </p> 
                         <div className="d-grid">
                             <Button variant="primary btn-block" onClick={()=> navigate("")}> Add Interests</Button>
                         </div>

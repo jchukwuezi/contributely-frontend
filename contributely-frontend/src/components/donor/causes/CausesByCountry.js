@@ -17,7 +17,7 @@ const CausesByCountry = () =>{
     const handleClose = () => setShow(false)
 
     useEffect(()=>{
-        fetch("http://localhost:4000/api/donors/get-causes/country", {
+        fetch("http://localhost:4000/api/global-giving/country", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},

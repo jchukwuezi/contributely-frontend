@@ -15,6 +15,7 @@ const DonorDashboard = () =>{
     const [noOfDonations, setNoOfDonations] = useState("")
     const [subscriptions, setSubscriptions] = useState([])
     const [subscriptionsNo, setSubscriptionsNo] = useState("")
+    const [amountGifted, setAmountGifted] = useState("")
     const [contributions, setContributions] = useState([])
     const [categoryKeys, setCategoryKeys] = useState([])
     const [categoryValues, setCategoryValues] = useState([])
@@ -28,6 +29,7 @@ const DonorDashboard = () =>{
         getNoOfDonations()
         getSubscriptions()
         getSubscriptionsNo()
+        getAmountGifted()
         getCategories()
         getSubCategories()
         return () => {
@@ -141,6 +143,22 @@ const DonorDashboard = () =>{
         })
     }
 
+    const getAmountGifted = () =>{
+        fetch("http://localhost:4000/api/donors/amount-gifted", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setAmountGifted(data.amount)
+            }
+            getData()
+        })
+    }
+
     const formatAmount = (amount) =>{
         return '€' + amount;
     }
@@ -229,7 +247,7 @@ const DonorDashboard = () =>{
         <Container>
             <Row className="justify-content-center mt-3 g-2">
             <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
-                <Card.Header>Total Amount Donated</Card.Header>
+                <Card.Header>Total Amount Contributed</Card.Header>
                 <Card.Title>€{totalAmountDonated}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Amount you've contributed to different initiatives on Contributely</Card.Subtitle>
             </Card>
@@ -244,6 +262,12 @@ const DonorDashboard = () =>{
                 <Card.Header>Number of Subscriptions</Card.Header>
                 <Card.Title>{subscriptionsNo}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Number of subscriptions you have</Card.Subtitle>
+            </Card>
+
+            <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
+                <Card.Header>Amount Gifted</Card.Header>
+                <Card.Title>€{amountGifted}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Amount of contributions that you've made as a gift to someone else</Card.Subtitle>
             </Card>
             </Row>
 
@@ -275,6 +299,7 @@ const DonorDashboard = () =>{
                         <Doughnut data={subData}/>
                     </div>
                 </Col>
+
             </Row>
 
         </Container>

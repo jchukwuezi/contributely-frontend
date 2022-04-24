@@ -5,6 +5,7 @@ import GlobalGivingInterestModal from "./modals/GlobalGivingInterestModal";
 
 const CausesByInterest = () => {
     const [causeData, setCauseData] = useState([])
+    const [category, setCategory] = useState("")
     const [country, setCountry] = useState("")
     const [title, setTitle] = useState("")
     const [mission, setMission] = useState("")
@@ -17,7 +18,7 @@ const CausesByInterest = () => {
     const handleClose = () => setShow(false)
 
     useEffect(() => {
-        fetch("http://localhost:4000/api/donors/get-causes/interest", {
+        fetch("http://localhost:4000/api/global-giving/interests", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},
@@ -32,7 +33,8 @@ const CausesByInterest = () => {
                 console.log(res)
                 const getData = async() => {
                     const data = await res.json()
-                    setCauseData(data.slice(0,3))
+                    setCauseData(data.causeInfo.slice(0,3))
+                    setCategory(data.category)
                 }
                 getData()
             }
@@ -72,8 +74,11 @@ const CausesByInterest = () => {
             <Container>
                 <Row className="mt-2">
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                        <h1 className="mt-5 p-3 text-center">No Causes found</h1>
-                        <p className="mt-2 p-3 text-center rounded">To find some suggested causes, please add some interests</p> 
+                        <h1 className="mt-5 p-3 text-center">No Global Giving Causes found</h1>
+                        <p className="mt-2 p-3 text-center rounded">To find some suggested causes, 
+                        please add some interests such as: Justice and Human Rights, Digital Literacy, Food Security, Arts and Culture, Clean Water, Disability Rights,
+                        Ending Abuse, Mental Health, Racial Justice.
+                        </p> 
                         <div className="d-grid">
                             <Button variant="primary btn-block" onClick={()=> navigate("/donor/account")}> Add Interests</Button>
                         </div>
@@ -85,7 +90,7 @@ const CausesByInterest = () => {
     
     return(
         <Container>
-            <h2 className="mt-5 p-3 text-center">Global Giving Based on your Interests</h2>
+            <h2 className="mt-5 p-3 text-center">Global Giving Causes Based on your Interest: {category}</h2>
             <Row className="justify-content-center">
             {causeData.map((causeData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>

@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {Button, Container, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ReactTagInput from "@pathofdev/react-tag-input"
 import "@pathofdev/react-tag-input/build/index.css"
+import interests from "../../../data/interests";
+import 'react-bootstrap-typeahead/css/Typeahead.css'
+import {Typeahead} from 'react-bootstrap-typeahead'
 
 
 const Interests = () => {
-    
+    const ref = useRef();
     const [tags, setTags] = useState([])
     const [addedTags, setAddedTags] = useState([])
     const [localTags, setLocalTags] = useState([])
+    const [selected, setSelected] = useState([])
     
     const navigate = useNavigate()
     useEffect(() => {
@@ -43,7 +47,8 @@ const Interests = () => {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                tags: localTags
+                //tags: localTags
+                tags: selected
             }),
             mode: 'cors'
         })
@@ -62,25 +67,26 @@ const Interests = () => {
             />
         </Row>
         
-        <h4>Add more</h4>
+        <h4>Add Interests</h4>
         <p>Add interests in the form below, seperating them with commas</p>
         <Row>
-            <ReactTagInput
-                tags={addedTags}
-                onChange={(newAddedTags) => {
-                    setAddedTags(newAddedTags)
-                    setLocalTags(newAddedTags)
-                }}
-                removeOnBackspace={false}
+            <Typeahead
+                id="interests"
+                multiple
+                options={interests}
+                placeholder="Add interests..."
+                ref={ref}
+                selected={selected}
+                onChange={setSelected} 
             />
-            <Button className="mt-2" onClick={()=>{
-                console.log("These are the tags")
-                console.log(localTags)
-                updateTags(localTags)
-                window.location.reload(false)
-            }}>
-                Add Interests
-            </Button>
+            <Button className="mt-2"
+                onClick={()=>{
+                    console.log(selected)
+                    updateTags(selected)
+                    window.location.reload(false)
+                }}
+            >
+            Add Interests</Button>
         </Row>
         </Container>
     )

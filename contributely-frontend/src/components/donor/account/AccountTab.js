@@ -14,10 +14,6 @@ const AccountTab = () => {
                     <Interests />
                 </Tab>
 
-                <Tab eventKey="collections" title="Collections">
-                
-                </Tab>
-
                 <Tab eventKey="details" title="Details">
                 
                 </Tab>
