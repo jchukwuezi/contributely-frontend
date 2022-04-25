@@ -25,6 +25,7 @@ import GroupCodeInitiatives from './components/donor/causes/contributely-causes/
 import {PDFViewer} from '@react-pdf/renderer'
 import OrgDashboard from './components/organisation/dashboard/OrgDashboard';
 import DonorDashboard from './components/donor/dashboard/DonorDashboard'
+import Collection from './components/donor/collection/Collection';
 import CreateSubModal from './components/donor/causes/contributely-causes/CreateSubModal';
 import Subscriptions from './components/donor/subscriptions/Subscriptions'
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/donor/homepage" element={<DonorHomepage/>}/>
         <Route path="/donor/account" element={<AccountTab/>}/>
         <Route path="/donor/dashboard" element={<DonorDashboard/>}/>
+        <Route path="/donor/collection" element={<Collection/>}/>
         <Route path="/org/initiative/add" element={<AddInitiative/>}/>
         <Route path="/org/stripe/onboard/success" element={<SuccessOnBoard/>}/>
         <Route path="/org/stripe/onboard/failure" element={<FailureOnboard/>}/>

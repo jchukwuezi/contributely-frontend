@@ -55,7 +55,7 @@ const DonorNavbar = () => {
                     <Nav.Link>Groups</Nav.Link>
                     */}
                     <Nav.Link onClick={()=> navigate("/donor/account")}>Account</Nav.Link>
-                    <Nav.Link onClick={()=> navigate("")}>My Collection</Nav.Link>
+                    <Nav.Link onClick={()=> navigate("/donor/collection")}>My Collection</Nav.Link>
                     <Nav.Link onClick={()=> navigate("/donor/dashboard")}>Dashboard</Nav.Link>
                     <Nav.Link onClick={()=> navigate("/donor/subscriptions")}>Subscriptions</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>

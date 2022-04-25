@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Button, Card, Col, Container, Row, Badge, ProgressBar } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import DonorNavbar from "../../shared/navbar/DonorNavbar";
 
 const Collection = () =>{
     const [collectionData, setCollectionData] = useState([])
@@ -56,6 +57,38 @@ const Collection = () =>{
             </Row>
         </Container>
     }    
+
+    return(
+        <div>
+        <DonorNavbar />
+        <Container>
+            <Col md="auto">
+                <h1 className="mt-5 p-3 text-center">Cause Collection</h1>
+                {collectionData.map((collectionData, k) => (
+                    <Row className="p-2 border rounded mt-2" key={k}>
+                        <h1>{collectionData.title}</h1>
+                        <p>URL: <a href={collectionData.url} target="_blank" rel="noreferrer noopener">{collectionData.url}</a></p>
+                        {collectionData.categories ? 
+                            <p>Categories: {collectionData.categories}</p>
+                        : null}
+                        {collectionData.goalAmount ? 
+                            <h4>Amount: €{collectionData.goalAmount}</h4>
+                        : null}
+                        <div className="d-grid gap-2">
+                            <Button onClick={()=>{
+                                
+                            }}>View Online</Button>
+                            <Button variant="danger" onClick={()=>{
+
+                            }}>Delete Cause</Button>
+                        </div>
+                    </Row>
+                    ))}
+        
+            </Col>
+        </Container>
+        </div>
+    )
 
 }
 
