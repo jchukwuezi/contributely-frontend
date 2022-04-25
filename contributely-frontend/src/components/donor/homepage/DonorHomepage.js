@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import DonorNavbar from "../../shared/navbar/DonorNavbar";
 import CausesByInterest from "../causes/CausesByInterest";
+import CrowdfunderCauses from "../causes/CrowdfunderCauses";
 import {loggedInDonor, checkAuthDonor} from "../../../auth/auth"
 import JustGivingCharities from "../charities/JustGivingCharities";
 import CausesByCountry from "../causes/CausesByCountry";
@@ -49,6 +50,7 @@ export const DonorHomepage = () => {
                 <CausesByInterest />
                 <CausesByCountry />
                 <GoFundMeCauses />
+                <CrowdfunderCauses />
                 <JustGivingCharities />
             </Row>
         </div>
