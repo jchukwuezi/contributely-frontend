@@ -19,6 +19,7 @@ const GroupInitiatives = () => {
     const [productDesc, setProductDesc] = useState("")
     const [unitAmount, setUnitAmount] = useState("")
     const [interval, setInterval] = useState("")
+    const [status, setStatus] = useState("")
     const [state, setState] = useState({})
     //getting the group id in the parameter to make the call to the api on server side
     //const {groupId} = useLocation()
@@ -36,6 +37,7 @@ const GroupInitiatives = () => {
     useEffect(()=>{
         groupDataAPI()
         subscriptionAPI()
+        getStatus(groupId)
         return ()=>{
             setState({})
         }
@@ -104,6 +106,57 @@ const GroupInitiatives = () => {
         })
     }
 
+    const getStatus = (id) =>{
+        fetch(`http://localhost:4000/api/groups/list-status/${id}`, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res) => {
+            console.log(res)
+            const getData = async() => {
+                const data = await res.json()
+                setStatus(data.memberStatus)
+            }
+            getData()
+        })
+    }
+
+    const leaveNotificationList = (id) =>{
+        fetch(`http://localhost:4000/api/groups/notify-list/leave/${id}`, {
+            credentials: 'include',
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then(async res => {
+            if(!res.ok){
+                alert(await res.text())
+            }
+            else{
+                alert('Left Group notification List successfully')
+            }
+        })
+    }
+
+    const joinNotificationList = (id) =>{
+        fetch(`http://localhost:4000/api/groups/notify-list/join/${id}`,{
+            credentials: 'include',
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })    
+        .then(async res => {
+            if(!res.ok){
+                alert(await res.text())
+            }
+            else{
+                alert('Joined Group notification List successfully')
+            }
+        })
+    }
+
     if (groupData.length === 0){
         return(
             <Container>
@@ -126,6 +179,17 @@ const GroupInitiatives = () => {
         <DonorNavbar />
         <Container>
             <h2 className="mt-3 p-3 text-center">Initiatives created by this Organisation</h2>
+            {status === false ? (
+                <Button variant="success" className="mb-3" onClick={()=>{
+                    joinNotificationList(groupId)
+                    window.location.reload(false)
+                }}>Join Notification List</Button>
+            ):(
+                <Button variant="danger" className="mb-3" onClick={()=>{
+                    leaveNotificationList(groupId)
+                    window.location.reload(false)
+                }}>Leave Notification List</Button>
+             )}
             <Row className="mt-2 justify-content-center">
                 {groupData.map((groupData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>

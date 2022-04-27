@@ -286,18 +286,42 @@ const DonorDashboard = () =>{
             <Row className="justify-content-center mt-3">
                 <Col md="auto">
                     <h2 className="p-3 text-center">Contribution Categories</h2>
-                    <p className="p-3 text-center">These are the categories that you have made contributions to</p>
-                    <div style={{height:'500px',width:'500px'}}>
-                        <Doughnut data={chartData}/>
-                    </div>
+                    {categoryValues.length === 0 ? (
+                        <div className="mb-4">
+                            <h3 className="mt-5 p-3 text-center">No contributions made</h3>
+                            <p className="mt-2 p-3 text-center rounded">Please make some contributions to the initatives by groups on contributely to view this data</p> 
+                            <div className="d-grid">
+                                <Button variant="primary btn-block" onClick={()=> navigate("/donor/homepage")}> Homepage</Button>
+                            </div>
+                        </div>
+                    ):(
+                        <div>
+                            <p className="p-3 text-center">These are the categories that you have made contributions to</p>
+                            <div style={{height:'500px',width:'500px'}}>
+                                <Doughnut data={chartData}/>
+                            </div>
+                        </div>
+                     )}
                 </Col>
 
                 <Col md="auto">
-                    <h2 className="p-3 text-center">Subscription Categories</h2>
-                    <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
-                    <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
-                        <Doughnut data={subData}/>
-                    </div>
+                    {subCatValues.length === 0 ? (
+                        <div className="mb-4">
+                            <h3 className="mt-5 p-3 text-center">No subscriptions set</h3>
+                            <p className="mt-2 p-3 text-center rounded">Please make set up subscriptions with groups to view this data</p> 
+                            <div className="d-grid">
+                                <Button variant="primary btn-block" onClick={()=> navigate("/donor/homepage")}> Homepage</Button>
+                            </div>
+                        </div>
+                    ):(
+                        <div className="mt-2">
+                            <h2 className="p-3 text-center">Subscription Categories</h2>
+                            <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
+                            <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
+                                <Doughnut data={subData}/>
+                            </div>
+                        </div>
+                    )}
                 </Col>
 
             </Row>

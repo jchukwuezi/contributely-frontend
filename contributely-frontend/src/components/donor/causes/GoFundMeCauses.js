@@ -79,7 +79,7 @@ const GoFundMeCauses = () =>{
                         Sports, Education, Environment, Health & Medical, Memorial, Emergency, Charity, Animal, Creative, Event, Faith, Family, Volunteer.
                         </p> 
                         <div className="d-grid">
-                            <Button variant="primary btn-block" onClick={()=> navigate("")}> Add Interests</Button>
+                            <Button variant="primary btn-block" onClick={()=> navigate("/donor/account")}> Add Interests</Button>
                         </div>
                     </Col>
                 </Row>
@@ -97,7 +97,7 @@ const GoFundMeCauses = () =>{
                         <Card.Img src={gfData.image}  />
                         <Card.Body>
                             <Card.Title>{gfData.title}</Card.Title>
-                            <Card.Text>{gfData.description}</Card.Text>
+                            <Card.Text>{gfData.description}<a href={gfData.url} target="_blank" rel="noreferrer noopener">....Read More</a></Card.Text>
                             <Card.Text>Goal Amount: {gfData.goalAmount}</Card.Text>
                             <div className="d-grid gap-2">
                                 <Button onClick={()=>{

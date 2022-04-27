@@ -65,7 +65,9 @@ const Groups = () => {
                             <Card.Title>{groups.name}</Card.Title>
                             <Card.Text>{groups.description}</Card.Text>
                             <Link to={`/donor/${groups._id}/initiatives`}>
+                            <div className="d-grid">
                                 <Button variant="primary">View Group</Button>
+                            </div>
                             </Link>
                         </Card.Body>
                     </Card>

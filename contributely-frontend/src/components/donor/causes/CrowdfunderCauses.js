@@ -81,7 +81,7 @@ const CrowdfunderCauses = () =>{
                         Sports, Education, Environment, Health & Medical, Community, Music, Film and Theatre, Animal, Creative & Arts, Technology, Politics.
                         </p> 
                         <div className="d-grid">
-                            <Button variant="primary btn-block" onClick={()=> navigate("")}> Add Interests</Button>
+                            <Button variant="primary btn-block" onClick={()=> navigate("/donor/account")}> Add Interests</Button>
                         </div>
                     </Col>
                 </Row>

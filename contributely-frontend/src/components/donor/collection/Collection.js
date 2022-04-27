@@ -40,8 +40,29 @@ const Collection = () =>{
         })
     }
 
+    const openInNewTab = (link) =>{
+        const newWindow = window.open(link, '_blank', 'noopener,noreferrer')
+        if(newWindow) newWindow.opener = null;
+    }
+
+
     const removeFromCollection = (id) =>{
-        
+        fetch(`http://localhost:4000/api/onlinecauses/collection/remove/${id}`, {
+            credentials: 'include',
+            method: 'DELETE',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then(async (res)=> {
+            if(!res.ok){
+                alert(await res.text())
+            }
+            else{
+                console.log(res)
+                alert('Removed cause from collection')
+                window.location.reload(false)
+            }
+        })
     }
 
     if(collectionData.length === 0){
@@ -76,10 +97,10 @@ const Collection = () =>{
                         : null}
                         <div className="d-grid gap-2">
                             <Button onClick={()=>{
-                                
+                                openInNewTab(collectionData.url)
                             }}>View Online</Button>
                             <Button variant="danger" onClick={()=>{
-
+                                removeFromCollection(collectionData._id)
                             }}>Delete Cause</Button>
                         </div>
                     </Row>
