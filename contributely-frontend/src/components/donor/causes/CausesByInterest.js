@@ -33,7 +33,7 @@ const CausesByInterest = () => {
                 console.log(res)
                 const getData = async() => {
                     const data = await res.json()
-                    setCauseData(data.causeInfo.slice(0,3))
+                    setCauseData(data.causeInfo?.slice(0,3))
                     setCategory(data.category)
                 }
                 getData()

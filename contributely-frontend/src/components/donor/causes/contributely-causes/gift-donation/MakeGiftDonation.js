@@ -46,7 +46,6 @@ const MakeGiftDonation = (props) =>{
                 alert("Gift donation successful")               
                 console.log("Payment intent details")
                 console.log(paymentIntent)
-                navigate('/donation-pdf', {state: paymentInfo})
             }
             catch(err){
                 console.log(err)

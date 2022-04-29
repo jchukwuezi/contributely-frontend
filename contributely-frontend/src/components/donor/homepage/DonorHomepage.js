@@ -5,6 +5,7 @@ import CausesByInterest from "../causes/CausesByInterest";
 import CrowdfunderCauses from "../causes/CrowdfunderCauses";
 import {loggedInDonor, checkAuthDonor} from "../../../auth/auth"
 import JustGivingCharities from "../charities/JustGivingCharities";
+import NotifiedBy from "../notifiedBy/NotifiedBy";
 import CausesByCountry from "../causes/CausesByCountry";
 import GoFundMeCauses from "../causes/GoFundMeCauses";
 import Groups from "../causes/contributely-causes/Groups";
@@ -52,6 +53,7 @@ export const DonorHomepage = () => {
                 <GoFundMeCauses />
                 <CrowdfunderCauses />
                 <JustGivingCharities />
+                <NotifiedBy />
             </Row>
         </div>
     )

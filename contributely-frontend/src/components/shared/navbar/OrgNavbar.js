@@ -59,6 +59,7 @@ const OrgNavbar = () => {
                     <Nav.Link>Groups</Nav.Link>
                     <Nav.Link>Account</Nav.Link>
                     */}
+                    <Nav.Link onClick={()=>navigate("/org/details")}>Details</Nav.Link>
                     <Nav.Link onClick={()=>navigate("/org/initiative/add")}>Add</Nav.Link>
                     <Nav.Link onClick={()=>navigate("/org/dashboard")}>Dashboard</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>

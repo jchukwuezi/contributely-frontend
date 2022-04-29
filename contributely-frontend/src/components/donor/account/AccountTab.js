@@ -13,10 +13,6 @@ const AccountTab = () => {
                 <Tab eventKey="interests" title="Interests">
                     <Interests />
                 </Tab>
-
-                <Tab eventKey="details" title="Details">
-                
-                </Tab>
         </Tabs>
         </div>
     )

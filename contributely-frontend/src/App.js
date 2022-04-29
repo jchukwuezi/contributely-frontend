@@ -28,6 +28,7 @@ import DonorDashboard from './components/donor/dashboard/DonorDashboard'
 import Collection from './components/donor/collection/Collection';
 import CreateSubModal from './components/donor/causes/contributely-causes/CreateSubModal';
 import Subscriptions from './components/donor/subscriptions/Subscriptions'
+import Details from './components/organisation/details.js/Details';
 
 const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/" element={<LandingPage/>}/>   
         <Route path="/org/register" element={<OrgRegister/>}/>       
         <Route path="/org/login" element={<OrgLogin/>}/>
+        <Route path="/org/details" element={<Details/>}/>
         <Route path="/org/homepage" element={<OrgHomepage/>}/>
         <Route path="/donor/register" element={<DonorRegister/>}/>
         <Route path="/donor/login" element={<DonorLogin/>}/>

@@ -5,7 +5,6 @@ import {Button, Form} from "react-bootstrap";
 
 //destructuring props from parent component
 export const MakeDonation = (props) =>{
-    //groupId will be used to find the stripe account number of the group to fill in the on_behalf_of field
     const groupId = props.groupId;
     const initiativeId = props.initiativeId;
     const navigate = useNavigate()
@@ -40,10 +39,9 @@ export const MakeDonation = (props) =>{
                     }
                 }
             )
-            alert("Donation successful")               
+            alert("Contribution Successful")               
             console.log("Payment intent details")
             console.log(paymentIntent)
-            navigate('/donation-pdf', {state: paymentInfo})
         }
         catch(err){
             console.log(err)

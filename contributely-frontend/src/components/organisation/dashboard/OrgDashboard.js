@@ -19,6 +19,7 @@ const OrgDashboard = () =>{
     const [totalInitiativeNo, setTotalInitiativeNo] = useState("")
     const [initiativeData, setInitiativeData] = useState([])
     const [subscriberList, setSubscriberList] = useState([])
+    const [notifyList, setNotifyList] = useState([])
     const [initiativeCatKeys, setInitiativeCatKeys] = useState([])
     const [initiativeCatValues, setInitiativeCatValues] = useState([])
     const navigate = useNavigate()
@@ -29,6 +30,7 @@ const OrgDashboard = () =>{
         getTotalInitiativeNo()
         getPending()
         getSubscriberList()
+        getNotifyList()
         getInitiativeCategories()
         return () => {
             setState({})
@@ -78,6 +80,22 @@ const OrgDashboard = () =>{
             const getData = async() =>{
                 const data = await res.json()
                 setPending(data.pendingBalance)
+            }
+            getData()
+        })
+    }
+
+    const getNotifyList = () =>{
+        fetch("http://localhost:4000/api/organisations/notification-list", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setNotifyList(data.notificationList)
             }
             getData()
         })
@@ -182,6 +200,18 @@ const OrgDashboard = () =>{
         }
     ]
 
+    const notifyListColumns = [
+        {
+            dataField: "name",
+            text: "Name"
+        },
+        
+        {
+            dataField: "email",
+            text: "Email"
+        },
+    ]
+
  
     ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -239,9 +269,21 @@ const OrgDashboard = () =>{
                     columns={columns}
                     striped
                     hover
-                    condensed
                 />
                 </Row>
+
+                <Row className="justify-content-center mt-3">
+                <h2 className="p-3 text-center">Notification List</h2>
+                <p className="p-3 text-center">Below are donor's that are signed up to your organisation's notification list</p>
+                <BootstrapTable
+                    keyField="email"
+                    data={notifyList}
+                    columns={notifyListColumns}
+                    striped
+                    hover
+                />
+                </Row>
+
 
                 <Row className="justify-content-center mt-3">
                 <h2 className="p-3 text-center">Categories of the Initiatives You have created</h2>

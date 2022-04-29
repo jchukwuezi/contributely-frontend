@@ -159,15 +159,29 @@ const GroupInitiatives = () => {
 
     if (groupData.length === 0){
         return(
-            <Container>
-                <Row className="mt-2">
-                    <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                        <h1 className="mt-5 p-3 text-center">No Initiatives found for this organisation</h1>
-                        <p className="mt-2 p-3 text-center rounded">This organisation has not yet set up any initiatives, come back another time to check if they have</p> 
-                        <Button variant="success btn-block" onClick={()=> navigate("/donor/homepage")}> Return to Homepage</Button>
-                    </Col>
-                </Row>
-            </Container>
+            <div>
+            <DonorNavbar />
+                <Container>
+                    <Row className="mt-2">
+                        <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
+                            <h2 className="mt-5 p-3 text-center">No Initiatives found for this organisation</h2>
+                            {status === false ? (
+                                <Button variant="success" className="mb-3" onClick={()=>{
+                                    joinNotificationList(groupId)
+                                    window.location.reload(false)
+                                }}>Join Notification List</Button>
+                            ):(
+                                <Button variant="danger" className="mb-3" onClick={()=>{
+                                    leaveNotificationList(groupId)
+                                    window.location.reload(false)
+                                }}>Leave Notification List</Button>
+                             )}
+                            <p className="mt-2 p-3 text-center rounded">This organisation has not yet set up any initiatives. If you are logged in, join their notification list so that you can emailed updates about this group.</p> 
+                            <Button variant="success btn-block" onClick={()=> navigate("/donor/homepage")}> Return to Homepage</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         )
     }
 

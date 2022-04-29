@@ -2,17 +2,17 @@ import {React, useEffect, useState} from "react"
 import { Container, Row, Col, Button, Card, Badge, Stack} from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import formatDate from "../../../data/formatdate"
-
+import OrgNavbar from '../../shared/navbar/OrgNavbar'
 
 const InitiativeDetails = () =>{
     const {initiativeId} = useParams();
     const [initativeDetail, setInitiativeDetail] = useState("");
+    const [donatedSoFar, setDonatedSoFar] = useState("");
     const [state, setState] = useState("")
     const navigate = useNavigate()
 
     useEffect(()=>{
         initiativeDetailAPI()
-        updateBalance()
         return()=>{
             setState("")
         }
@@ -34,7 +34,8 @@ const InitiativeDetails = () =>{
                 console.log(res)
                 const getData = async() =>{
                     const data = await res.json()
-                    setInitiativeDetail(data)
+                    setInitiativeDetail(data.initiativeData)
+                    setDonatedSoFar(data.donatedSoFar)
                 }
                 getData()
             }
@@ -42,29 +43,6 @@ const InitiativeDetails = () =>{
     }
 
     //function to update and find current balance
-    const updateBalance = () =>{
-        fetch(`http://localhost:4000/api/initiatives/update-balance/${initiativeId}`, {
-            credentials: 'include',
-            method: 'PATCH',
-            headers: {"Content-Type": "application/json"},
-            mode: 'cors'
-        })
-        .then((res)=> {
-            if(!res.ok){
-                alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
-            }
-            else{
-                console.log(res)
-                const getData = async() =>{
-                    const data = await res.json()
-                    console.log(data)
-                }
-                getData()
-            }
-        })
-    }
-
     const endInitiative = () =>{
         fetch(`http://localhost:4000/api/initiatives/close/${initiativeId}`, {
             credentials: 'include',
@@ -89,6 +67,8 @@ const InitiativeDetails = () =>{
     }
 
     return(
+        <div>
+        <OrgNavbar />
         <Container>
             <Row className="justify-content-center mt-5">
                 <Col>
@@ -101,11 +81,11 @@ const InitiativeDetails = () =>{
                             {initativeDetail.closingDate ? 
                                 <Card.Text>Closing Date: {formatDate(initativeDetail.closingDate)}</Card.Text>
                             : null}
-                            {initativeDetail.closingBalance ? 
+                            {initativeDetail.closingBalance ?  (
                                 <Card.Text>Closing Balance: €{initativeDetail.closingBalance}</Card.Text>
-                            : 
-                            <Card.Text>Amount Donated so far €{initativeDetail.donationHistory.reduce((n, {amount}) => n + amount, 0)}</Card.Text>
-                            }
+                            ):( 
+                                <Card.Text>Amount Donated so far €{donatedSoFar}</Card.Text>
+                            )}
                             <Stack direction="horizontal" gap={2} className="justify-content-center">
                                 {initativeDetail.tags && initativeDetail.tags.map((tag, k) => (
                                     <Badge bg="success">{tag}</Badge>
@@ -126,6 +106,7 @@ const InitiativeDetails = () =>{
                 </Col>
             </Row>
         </Container>
+        </div>
     )
 
 }
