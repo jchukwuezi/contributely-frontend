@@ -7,6 +7,7 @@ import {Button, Form} from "react-bootstrap";
 export const MakeDonationNoAuth = (props) =>{
     const groupCode = props.groupCode;
     const initiativeId = props.initiativeId;
+    const navigate = useNavigate()
     const elements = useElements();
     const stripe = useStripe();
     const [onBehalfOf, setOnBehalfOf] = useState("")

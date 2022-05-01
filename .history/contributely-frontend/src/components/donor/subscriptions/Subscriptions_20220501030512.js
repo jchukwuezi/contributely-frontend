@@ -53,7 +53,6 @@ const Subscriptions = () =>{
             }
             else{
                 alert("Ended subscription")
-                window.location.reload(false)
             }
         })
     }
@@ -81,7 +80,7 @@ const Subscriptions = () =>{
         <div>
         <DonorNavbar />
         <Container>
-            <Col md="auto">
+            <Col sm="auto">
             <h1 className="mt-5 p-3 text-center">Subscriptions</h1>
                 {subsData.map((subsData, k) => (
                 <Row className="p-2 border rounded mt-2" key={k}>
@@ -100,15 +99,17 @@ const Subscriptions = () =>{
                     {subsData.active === false ? (
                         <Badge bg="danger" className="mb-3">Cancelled</Badge>
                     ):(
-                        <Col md={6}>
+                        <Col sm={4}>
                             <Badge bg="success" className="mb-3">Active</Badge>
                         </Col>
                      )}
 
                      {subsData.active === true ? (
-                        <Button onClick={()=>{
-                            endSubscription(subsData._id)
-                        }}>End Subscription</Button>
+                        <Col md="auto">
+                            <Button onClick={()=>{
+                                endSubscription(subsData.stripeSubscriptionId)
+                            }}>End Subscription</Button>
+                        </Col>
                         ) : (
                             <Button disabled>End Subscription</Button>
                         )}

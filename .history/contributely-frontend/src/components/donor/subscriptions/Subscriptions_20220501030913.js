@@ -53,7 +53,6 @@ const Subscriptions = () =>{
             }
             else{
                 alert("Ended subscription")
-                window.location.reload(false)
             }
         })
     }
@@ -100,14 +99,14 @@ const Subscriptions = () =>{
                     {subsData.active === false ? (
                         <Badge bg="danger" className="mb-3">Cancelled</Badge>
                     ):(
-                        <Col md={6}>
+                        <Col sm={6}>
                             <Badge bg="success" className="mb-3">Active</Badge>
                         </Col>
                      )}
 
                      {subsData.active === true ? (
                         <Button onClick={()=>{
-                            endSubscription(subsData._id)
+                            endSubscription(subsData.stripeSubscriptionId)
                         }}>End Subscription</Button>
                         ) : (
                             <Button disabled>End Subscription</Button>

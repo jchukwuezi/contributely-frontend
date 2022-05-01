@@ -107,7 +107,7 @@ const Subscriptions = () =>{
 
                      {subsData.active === true ? (
                         <Button onClick={()=>{
-                            endSubscription(subsData._id)
+                            endSubscription(subsData.stripeSubscriptionId)
                         }}>End Subscription</Button>
                         ) : (
                             <Button disabled>End Subscription</Button>

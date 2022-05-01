@@ -371,7 +371,7 @@ const DonorDashboard = () =>{
                     ):(
                         <div className="mt-2">
                             <h2 className="p-3 text-center">Subscription Categories</h2>
-                            <p className="p-3 text-center">These are the categories of the groups you've set up subscriptions with</p>
+                            <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
                             <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
                                 <Doughnut data={subData}/>
                             </div>

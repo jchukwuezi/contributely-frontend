@@ -32,7 +32,7 @@ export const DonorRegister = () =>{
                 alert(await res.text())
             }
             else{
-                alert('Registration successful, please check your email for verification link')
+                alert('Registration successful')
                 console.log(`New user ${registerDonorName} added`)
                 navigate("/donor/login")
             }

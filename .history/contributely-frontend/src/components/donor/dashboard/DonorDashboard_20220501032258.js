@@ -293,7 +293,7 @@ const DonorDashboard = () =>{
             <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
                 <Card.Header>Number of Subscriptions</Card.Header>
                 <Card.Title>{subscriptionsNo}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Number of active subscriptions you have</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Number of subscriptions you have</Card.Subtitle>
             </Card>
 
             <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
@@ -371,7 +371,7 @@ const DonorDashboard = () =>{
                     ):(
                         <div className="mt-2">
                             <h2 className="p-3 text-center">Subscription Categories</h2>
-                            <p className="p-3 text-center">These are the categories of the groups you've set up subscriptions with</p>
+                            <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
                             <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
                                 <Doughnut data={subData}/>
                             </div>

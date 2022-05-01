@@ -7,6 +7,7 @@ import {Button, Form} from "react-bootstrap";
 export const MakeDonationNoAuth = (props) =>{
     const groupCode = props.groupCode;
     const initiativeId = props.initiativeId;
+    const navigate = useNavigate()
     const elements = useElements();
     const stripe = useStripe();
     const [onBehalfOf, setOnBehalfOf] = useState("")
@@ -20,7 +21,7 @@ export const MakeDonationNoAuth = (props) =>{
             return
         }
         try{
-            const {clientSecret} = await fetch(`http://localhost:4000/api/groups/${groupCode}/${initiativeId}/donate-na`, {
+            const {clientSecret, paymentInfo} = await fetch(`http://localhost:4000/api/groups/${groupCode}/${initiativeId}/donate-na`, {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -45,11 +46,19 @@ export const MakeDonationNoAuth = (props) =>{
             alert("Donation successful")               
             console.log("Payment intent details")
             console.log(paymentIntent)
+            navigate('/donation-pdf', {state: paymentInfo})
             //await createPdf(paymentInfo)
         }
         catch(err){
             console.log(err)
         }
+    }
+
+    const createPdf = (paymentInfo) =>{
+        console.log(paymentInfo)
+        const {initiativeName, groupName, inTheNameOf, amount, email} = paymentInfo
+        
+        
     }
 
     return(

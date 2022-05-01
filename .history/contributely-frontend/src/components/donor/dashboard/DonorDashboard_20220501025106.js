@@ -171,6 +171,12 @@ const DonorDashboard = () =>{
     
     const columns = [
         {
+            dataField: "_id",
+            text: "Subscription ID"
+        },
+        
+
+        {
             dataField: "amount",
             formatter: amount => formatAmount(amount),
             text: "Subscription Amount"
@@ -186,25 +192,13 @@ const DonorDashboard = () =>{
             dataField: "startDate",
             formatter: startDate => formatDate(startDate),
             text: "Date created"
-        },
-
-        {
-            dataField: "endDate",
-            formatter: endDate => formatDate(endDate),
-            text: "Date ended"
         }
     ]
 
     const transactionColumns = [
         {
             dataField: "amount",
-            formatter: amount => formatAmount(amount),
             text: "Amount"
-        },
-
-        {
-            dataField: "groupName",
-            text: "Group Name"
         },
 
         {
@@ -293,7 +287,7 @@ const DonorDashboard = () =>{
             <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
                 <Card.Header>Number of Subscriptions</Card.Header>
                 <Card.Title>{subscriptionsNo}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Number of active subscriptions you have</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Number of subscriptions you have</Card.Subtitle>
             </Card>
 
             <Card style={{width: '18rem'}} className="text-center mt-2 mb-3">
@@ -306,18 +300,16 @@ const DonorDashboard = () =>{
             <Row className="justify-content-center mt-3">
             <h2 className="p-3 text-center">Recent Contributions</h2>
             <BootstrapTable
-                keyField="amount"
+                keyField="_id"
                 data={contributions}
                 columns={transactionColumns}
                 striped
                 hover
                 condensed
             />
-            <Col sm={6}>
-                <div className="d-grid mt-2">
-                    <Button variant="primary btn-block" onClick={()=> navigate("")}> View Transactions</Button>
-                </div>
-            </Col>
+            <div className="d-grid mt-2">
+                <Button variant="primary btn-block" onClick={()=> navigate("/donor/subscriptions")}> View Subscriptions</Button>
+            </div>
             </Row>
 
             <Row className="justify-content-center mt-3">
@@ -330,15 +322,13 @@ const DonorDashboard = () =>{
                 hover
                 condensed
             />
-            <Col sm={6}>
-                <div className="d-grid mt-2">
-                    <Button variant="primary btn-block" onClick={()=> navigate("/donor/subscriptions")}> View Subscriptions</Button>
-                </div>
-            </Col>
+            <div className="d-grid mt-2">
+                <Button variant="primary btn-block" onClick={()=> navigate("/donor/subscriptions")}> View Subscriptions</Button>
+            </div>
             </Row>
 
         
-            <Row className="justify-content-center mt-5">
+            <Row className="justify-content-center mt-3">
                 <Col md="auto">
                     <h2 className="p-3 text-center">Contribution Categories</h2>
                     {categoryValues.length === 0 ? (
@@ -371,7 +361,7 @@ const DonorDashboard = () =>{
                     ):(
                         <div className="mt-2">
                             <h2 className="p-3 text-center">Subscription Categories</h2>
-                            <p className="p-3 text-center">These are the categories of the groups you've set up subscriptions with</p>
+                            <p className="p-3 text-center">These are the categories of the groups that you've made contributions to</p>
                             <div className="justify-content-center" style={{height:'500px',width:'500px'}}>
                                 <Doughnut data={subData}/>
                             </div>
