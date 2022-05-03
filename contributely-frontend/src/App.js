@@ -29,6 +29,7 @@ import Collection from './components/donor/collection/Collection';
 import CreateSubModal from './components/donor/causes/contributely-causes/CreateSubModal';
 import Subscriptions from './components/donor/subscriptions/Subscriptions'
 import Details from './components/organisation/details.js/Details';
+import Transactions from './components/donor/transactions/Transactions';
 
 const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
@@ -73,6 +74,7 @@ function App() {
         }/>
         <Route path="/donation-pdf" element={<DonationPdf/>}/>
         <Route path="/donor/subscriptions" element={<Subscriptions/>}/>
+        <Route path="/donor/transactions" element={<Transactions/>}/>
       </Routes>
     </div>
   );

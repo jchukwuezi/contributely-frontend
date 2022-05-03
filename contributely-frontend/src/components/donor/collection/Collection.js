@@ -66,8 +66,11 @@ const Collection = () =>{
     }
 
     if(collectionData.length === 0){
+        return(
+        <div>
+        <DonorNavbar />
         <Container>
-            <Row className="mt-2">
+            <Row className="mt-3">
                 <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
                     <h1 className="mt-5 p-3 text-center">No Causes found in your collection</h1>
                     <p className="mt-2 p-3 text-center rounded">Please add some initiatives from the homepage.</p> 
@@ -77,6 +80,8 @@ const Collection = () =>{
                 </Col>
             </Row>
         </Container>
+        </div>
+        )
     }    
 
     return(

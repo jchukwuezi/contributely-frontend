@@ -13,7 +13,8 @@ const DonorDashboard = () =>{
     const [state, setState] = useState({})
     const [totalAmountDonated, setTotalAmountDonated] = useState("")
     const [noOfDonations, setNoOfDonations] = useState("")
-    const [subscriptions, setSubscriptions] = useState([])
+    const [openSubs, setOpenSubs] = useState([])
+    const [closedSubs, setClosedSubs] = useState([])
     const [subscriptionsNo, setSubscriptionsNo] = useState("")
     const [amountGifted, setAmountGifted] = useState("")
     const [contributions, setContributions] = useState([])
@@ -27,7 +28,8 @@ const DonorDashboard = () =>{
     useEffect(()=>{
         getTotalAmountDonated()
         getNoOfDonations()
-        getSubscriptions()
+        getOpenSubs()
+        getClosedSubs()
         getSubscriptionsNo()
         getAmountGifted()
         getCategories()
@@ -49,7 +51,7 @@ const DonorDashboard = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
+                navigate("/donor/homepage")
             }
 
             else{
@@ -79,8 +81,8 @@ const DonorDashboard = () =>{
         })
     }
 
-    const getSubscriptions = () =>{
-        fetch("http://localhost:4000/api/subscriptions/donor/all", {
+    const getOpenSubs = () =>{
+        fetch("http://localhost:4000/api/subscriptions/donor/all/open", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},
@@ -89,14 +91,38 @@ const DonorDashboard = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
+                navigate("/donor/homepage")
             }
 
             else{
                 console.log(res)
                 const getData = async() =>{
                     const data = await res.json()
-                    setSubscriptions(data.subs)
+                    setOpenSubs(data.subs)
+                }
+                getData()
+            }
+        })
+    }
+
+    const getClosedSubs = () =>{
+        fetch("http://localhost:4000/api/subscriptions/donor/all/closed", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            if(!res.ok){
+                alert('Unauthorized, please log in to view this page')
+                navigate("/donor/homepage")
+            }
+
+            else{
+                console.log(res)
+                const getData = async() =>{
+                    const data = await res.json()
+                    setClosedSubs(data.subs)
                 }
                 getData()
             }
@@ -104,7 +130,7 @@ const DonorDashboard = () =>{
     }
 
     const getSubscriptionsNo = () =>{
-        fetch("http://localhost:4000/api/subscriptions/donor/all", {
+        fetch("http://localhost:4000/api/subscriptions/donor/all/open", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},
@@ -113,7 +139,7 @@ const DonorDashboard = () =>{
         .then((res)=> {
             if(!res.ok){
                 alert('Unauthorized, please log in to view this page')
-                navigate("/org/login")
+                navigate("/donor/homepage")
             }
 
             else{
@@ -169,7 +195,33 @@ const DonorDashboard = () =>{
     }
 
     
-    const columns = [
+    const openSubsColumns = [
+        {
+            dataField: "amount",
+            formatter: amount => formatAmount(amount),
+            text: "Subscription Amount"
+        },
+
+        {
+            dataField: "interval",
+            formatter: interval => formatInterval(interval),
+            text: "Subscription Interval"
+        },
+
+        {
+            dataField: "startDate",
+            formatter: startDate => formatDate(startDate),
+            text: "Date created"
+        },
+
+        {
+            dataField: "endDate",
+            formatter: endDate => formatDate(endDate),
+            text: "Date ended"
+        }
+    ]
+
+    const closedSubsColumns = [
         {
             dataField: "amount",
             formatter: amount => formatAmount(amount),
@@ -315,17 +367,29 @@ const DonorDashboard = () =>{
             />
             <Col sm={6}>
                 <div className="d-grid mt-2">
-                    <Button variant="primary btn-block" onClick={()=> navigate("")}> View Transactions</Button>
+                    <Button variant="primary btn-block" onClick={()=> navigate("/donor/transactions")}> View Transactions</Button>
                 </div>
             </Col>
             </Row>
 
             <Row className="justify-content-center mt-3">
-            <h2 className="p-3 text-center">Subscriptions</h2>
+            <h2 className="p-3 text-center">Open Subscriptions</h2>
             <BootstrapTable
                 keyField="_id"
-                data={subscriptions}
-                columns={columns}
+                data={openSubs}
+                columns={openSubsColumns}
+                striped
+                hover
+                condensed
+            />
+            </Row>
+
+            <Row className="justify-content-center mt-3">
+            <h2 className="p-3 text-center">Closed Subscriptions</h2>
+            <BootstrapTable
+                keyField="_id"
+                data={closedSubs}
+                columns={closedSubsColumns}
                 striped
                 hover
                 condensed
@@ -337,7 +401,6 @@ const DonorDashboard = () =>{
             </Col>
             </Row>
 
-        
             <Row className="justify-content-center mt-5">
                 <Col md="auto">
                     <h2 className="p-3 text-center">Contribution Categories</h2>

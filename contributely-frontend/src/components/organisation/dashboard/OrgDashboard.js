@@ -170,12 +170,7 @@ const OrgDashboard = () =>{
         })
     }
 
-    const columns = [
-        {
-            dataField: "_id",
-            text: "Subscription ID"
-        },
-        
+    const columns = [        
         {
             dataField: "donor.name",
             text: "Contributor"
