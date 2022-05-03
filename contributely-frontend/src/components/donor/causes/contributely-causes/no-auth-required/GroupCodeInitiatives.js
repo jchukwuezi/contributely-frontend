@@ -7,6 +7,7 @@ const GroupCodeInitiatives = () =>{
     const navigate = useNavigate()
     const {groupCode} = useParams();
     const [groupData, setGroupData] = useState([])
+    const [groupName, setGroupName] = useState("")
     const [state, setState] = useState({})
 
     useEffect(()=>{
@@ -32,7 +33,8 @@ const GroupCodeInitiatives = () =>{
                 console.log(res)
                 const getData = async() =>{
                     const data = await res.json()
-                    setGroupData(data)
+                    setGroupData(data.initiatives)
+                    setGroupName(data.groupName)
                 }
                 getData()
             }
@@ -44,7 +46,7 @@ const GroupCodeInitiatives = () =>{
             <Container>
                 <Row className="mt-2">
                     <Col lg={5} md={6} sm={12} className="p-5 m-auto shadow-sm rounded-lg">
-                        <h1 className="mt-5 p-3 text-center">No Initiatives found for this organisation</h1>
+                        <h1 className="mt-5 p-3 text-center">No Initiatives found for {groupName}</h1>
                         <p className="mt-2 p-3 text-center rounded">This organisation has not yet set up any initiatives, join Contributely today to find similar causes to donate to.</p> 
                         <Button variant="success btn-block" onClick={()=> navigate("/donor/register")}> Donor Register</Button>
                     </Col>
@@ -58,7 +60,7 @@ const GroupCodeInitiatives = () =>{
 
     return(
         <Container>
-            <h2 className="p-3 text-center">Initiatives created by this Organisation</h2>
+            <h2 className="p-3 text-center">Initiatives created by {groupName}</h2>
             <Row className="justify-content-center mt-3 g-2">
                 {groupData.map((groupData, k) => (
                 <Col key={k} xs={12} md={4} lg={3}>

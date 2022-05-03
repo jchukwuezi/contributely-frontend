@@ -9,13 +9,13 @@ export const MakeDonationNoAuth = (props) =>{
     const initiativeId = props.initiativeId;
     const elements = useElements();
     const stripe = useStripe();
-    const [onBehalfOf, setOnBehalfOf] = useState("")
+    const [name, setName] = useState("")
     const [donorEmail, setDonorEmail] = useState("")
     const [amount, setAmount] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(amount, donorEmail, onBehalfOf)
+        console.log(amount, donorEmail, name)
         if(!stripe || !elements){
             return
         }
@@ -28,7 +28,7 @@ export const MakeDonationNoAuth = (props) =>{
                     currency: 'eur',
                     amount: amount,
                     email: donorEmail,
-                    onBehalfOf: onBehalfOf
+                    name: name
                 })
             })
             .then(r => r.json())
@@ -60,8 +60,8 @@ export const MakeDonationNoAuth = (props) =>{
         </Form.Group>
 
         <Form.Group className="mt-2">
-            <Form.Label>Who is this contribution on behalf of?</Form.Label>
-            <Form.Control placeholder="Enter their full name" onChange={e => setOnBehalfOf(e.target.value)}/> 
+            <Form.Label>What is your name?</Form.Label>
+            <Form.Control placeholder="Enter your full name" onChange={e => setName(e.target.value)}/> 
         </Form.Group>
 
         <Form.Group className="mt-2">

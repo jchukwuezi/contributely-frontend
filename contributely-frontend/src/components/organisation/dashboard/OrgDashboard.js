@@ -17,7 +17,8 @@ const OrgDashboard = () =>{
     const [pending, setPending] = useState("")
     const [totalContributions, setTotalContributions] = useState("")
     const [totalInitiativeNo, setTotalInitiativeNo] = useState("")
-    const [initiativeData, setInitiativeData] = useState([])
+    const [subCatKeys, setSubCatKeys] = useState([])
+    const [subCatValues, setSubCatValues] = useState([])
     const [subscriberList, setSubscriberList] = useState([])
     const [recentCons, setRecentCons] = useState([])
     const [notifyList, setNotifyList] = useState([])
@@ -34,6 +35,7 @@ const OrgDashboard = () =>{
         getSubscriberList()
         getNotifyList()
         getInitiativeCategories()
+        getSubsCats()
         return () => {
             setState({})
         }
@@ -188,6 +190,23 @@ const OrgDashboard = () =>{
         })
     }
 
+    const getSubsCats = () =>{
+        fetch("http://localhost:4000/api/organisations/initiative-categories", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setSubCatKeys(data.categoryKeys)
+                setSubCatValues(data.categoryValues)
+            }
+            getData()
+        })
+    }
+
     const columns = [        
         {
             dataField: "donor.name",
@@ -258,6 +277,18 @@ const OrgDashboard = () =>{
             {
                 label: 'Categories',
                 data: initiativeCatValues,
+                backgroundColor: getRandomColorPie(initiativeCatValues),
+                borderWidth: 1
+            }
+        ]
+    }
+
+    const subCatData = {
+        labels: subCatKeys,
+        datasets: [
+            {
+                label: 'Categories',
+                data: subCatValues,
                 backgroundColor: getRandomColorPie(initiativeCatValues),
                 borderWidth: 1
             }
@@ -344,10 +375,37 @@ const OrgDashboard = () =>{
 
 
                 <Row className="justify-content-center mt-3">
-                <h2 className="p-3 text-center">Categories of the Initiatives You have created</h2>
-                <div style={{height:'500px',width:'500px'}}>
-                    <Pie data={initiativeCatData} />
-                </div>
+                <Col md="auto"> 
+                {initiativeCatValues.length === 0 ? (
+                    <div className="mb-4">
+                        <h3 className="mt-5 p-3 text-center">No initiatives created by this Organisation to see this data</h3>
+                    </div>
+                ):(
+                    <div className="mt-2">
+                        <h2 className="p-3 text-center">Categories of the Initiatives You have created</h2>
+                        <div style={{height:'500px',width:'500px'}}>
+                            <Pie data={initiativeCatData} />
+                        </div>
+                    </div>
+                )}
+                </Col>
+
+                <Col md="auto">
+                {subCatValues.length === 0 ? (
+                    <div>
+                        <h3 className="mt-5 p-3 text-center">No subscriptions set up with this Organisation yet.</h3>
+                    </div>
+                ) : (    
+                    <div>
+                        <h2 className="p-3 text-center">Interests of your Subscribers</h2>
+                        <p className="p-3 text-center">These are the interests of the periodic contributors of your group.</p>
+                        <div style={{height:'500px',width:'500px'}}>
+                            <Pie data={subCatData} />
+                        </div>
+                    </div>
+                )}    
+                </Col>
+
                 </Row>
             </Container>
         </div>
