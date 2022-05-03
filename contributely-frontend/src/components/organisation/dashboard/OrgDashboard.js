@@ -19,6 +19,7 @@ const OrgDashboard = () =>{
     const [totalInitiativeNo, setTotalInitiativeNo] = useState("")
     const [initiativeData, setInitiativeData] = useState([])
     const [subscriberList, setSubscriberList] = useState([])
+    const [recentCons, setRecentCons] = useState([])
     const [notifyList, setNotifyList] = useState([])
     const [initiativeCatKeys, setInitiativeCatKeys] = useState([])
     const [initiativeCatValues, setInitiativeCatValues] = useState([])
@@ -29,6 +30,7 @@ const OrgDashboard = () =>{
         getTotalContributions()
         getTotalInitiativeNo()
         getPending()
+        getRecentCons()
         getSubscriberList()
         getNotifyList()
         getInitiativeCategories()
@@ -66,6 +68,22 @@ const OrgDashboard = () =>{
                 }
                 getData()
             }
+        })
+    }
+
+    const getRecentCons = () =>{
+        fetch("http://localhost:4000/api/organisations/recent-contributions", {
+            credentials: 'include',
+            method: 'GET',
+            headers: {"Content-Type": "application/json"},
+            mode: 'cors'
+        })
+        .then((res)=> {
+            const getData = async() =>{
+                const data = await res.json()
+                setRecentCons(data.contributions?.slice(0,3))
+            }
+            getData()
         })
     }
 
@@ -207,6 +225,29 @@ const OrgDashboard = () =>{
         },
     ]
 
+    const consColumns = [
+        {
+            dataField: "title",
+            text: "Title"
+        },
+
+        {
+            dataField: "history.amount",
+            text: "Amount"
+        },
+
+        {
+            dataField: "history.name",
+            text: "Name"
+        },
+        
+        {
+            dataField: "history.date",
+            formatter: date => formatDate(date),
+            text: "Date created"
+        }
+    ]
+
  
     ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -256,6 +297,23 @@ const OrgDashboard = () =>{
                 </Row>
 
                 <Row className="justify-content-center mt-3">
+                <h2 className="p-3 text-center">Recent Contributions</h2>
+                <BootstrapTable
+                    keyField="_id"
+                    data={recentCons}
+                    columns={consColumns}
+                    striped
+                    hover
+                />
+                    <Col sm={6}>
+                        <div className="d-grid mt-2">
+                            <Button variant="success btn-block" onClick={()=> navigate("/org/contributions")}> View More</Button>
+                        </div>
+                    </Col>
+                </Row>
+
+
+                <Row className="justify-content-center mt-3">
                 <h2 className="p-3 text-center">Periodic Contributors</h2>
                 <p className="p-3 text-center">Below are contributors that have set up a regular contribution to your organisation</p>
                 <BootstrapTable
@@ -265,6 +323,11 @@ const OrgDashboard = () =>{
                     striped
                     hover
                 />
+                    <Col sm={6}>
+                        <div className="d-grid mt-2">
+                            <Button variant="success btn-block" onClick={()=> navigate("/org/subs")}> View More</Button>
+                        </div>
+                    </Col>
                 </Row>
 
                 <Row className="justify-content-center mt-3">

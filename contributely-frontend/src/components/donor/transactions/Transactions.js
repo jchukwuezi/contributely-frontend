@@ -69,6 +69,7 @@ const Transactions = () =>{
                 <Row className="p-2 border rounded mt-2" key={k}>
                     <h3>{transData.initiativeName}</h3>
                     <p>Description: {transData.groupName}</p>
+                    <p>Date: {formatDate(transData.date)}</p>
                     <Stack direction="horizontal" gap={2} className="justify-content-center">
                     {transData.initiativeTags && transData.initiativeTags.map((tag, k) => (
                         <Badge>{tag}</Badge>

@@ -30,6 +30,8 @@ import CreateSubModal from './components/donor/causes/contributely-causes/Create
 import Subscriptions from './components/donor/subscriptions/Subscriptions'
 import Details from './components/organisation/details.js/Details';
 import Transactions from './components/donor/transactions/Transactions';
+import Contributions from './components/organisation/contributions/Contributions';
+import PeriodicCons from './components/organisation/periodic-cons/PeriodicCons';
 
 const stripePromise = loadStripe("pk_test_51KKuOdJ7ft6dkEBZBzzUOfBBNunxjWTLiRwrf8k19BcgKdqdKX2frTznZIHJucooD9jps1JFmnwMTd4ZNlJ1EFTH00FIDwe1x8")
 
@@ -54,6 +56,8 @@ function App() {
         <Route path="/org/initiatives" element={<AllInitiatives/>}/>
         <Route path="/org/dashboard" element={<OrgDashboard/>}/>
         <Route path="/org/initiatives/:initiativeId" element={<InitiativeDetails/>}/>
+        <Route path="/org/contributions" element={<Contributions/>}/>
+        <Route path="/org/subs" element={<PeriodicCons/>}/>
         <Route path="/donor/groups" element={<Groups/>}/>
         <Route path="/donor/:groupId/initiatives" element={<GroupInitiatives/>}/>
         <Route path="/contributely/:groupCode/initiatives" element={<GroupCodeInitiatives/>}/>

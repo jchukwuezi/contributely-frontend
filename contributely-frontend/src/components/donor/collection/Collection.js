@@ -98,7 +98,7 @@ const Collection = () =>{
                             <p>Categories: {collectionData.categories}</p>
                         : null}
                         {collectionData.goalAmount ? 
-                            <h4>Amount: €{collectionData.goalAmount}</h4>
+                            <h4>Goal Amount: €/£{collectionData.goalAmount}</h4>
                         : null}
                         <div className="d-grid gap-2">
                             <Button onClick={()=>{
